@@ -132,3 +132,7 @@
     text-rendering: optimizeLegibility;
   }
 }
+
+button {
+  cursor: pointer;
+}

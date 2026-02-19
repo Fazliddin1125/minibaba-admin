@@ -1,0 +1,130 @@
+{
+  "user": {
+    "name": "Alijon Valiyev",
+    "role": "Premium account",
+    "avatar": null
+  },
+  "stats": [
+    {
+      "id": "total_products",
+      "label": "Jami mahsulotlar",
+      "value": "1,284",
+      "icon": "Package",
+      "color": "blue",
+      "trend": null,
+      "trendValue": null
+    },
+    {
+      "id": "active_products",
+      "label": "Faol mahsulotlar",
+      "value": "48",
+      "icon": "ShoppingBag",
+      "color": "green",
+      "trend": "up",
+      "trendValue": "+12%"
+    },
+    {
+      "id": "new_messages",
+      "label": "Yangi xabarlar",
+      "value": "12",
+      "icon": "MessageSquare",
+      "color": "orange",
+      "trend": null,
+      "trendValue": "5 yangi"
+    },
+    {
+      "id": "total_revenue",
+      "label": "Jami daromad",
+      "value": "45,800,000",
+      "suffix": "UZS",
+      "icon": "Wallet",
+      "color": "yellow",
+      "trend": null,
+      "trendValue": null
+    }
+  ],
+  "topProducts": [
+    {
+      "id": 1,
+      "name": "Premium Paxta Futbolka (Oq)",
+      "rating": 4.9,
+      "reviewCount": 128,
+      "sold": 854,
+      "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=80&h=80&fit=crop"
+    },
+    {
+      "id": 2,
+      "name": "Erkaklar Charm Kamari",
+      "rating": 4.8,
+      "reviewCount": 97,
+      "sold": 742,
+      "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=80&h=80&fit=crop"
+    },
+    {
+      "id": 3,
+      "name": "Sport Oyoq kiyimi (RunX)",
+      "rating": 4.7,
+      "reviewCount": 210,
+      "sold": 631,
+      "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=80&h=80&fit=crop"
+    },
+    {
+      "id": 4,
+      "name": "Klassik Ko'ylak (Slim Fit)",
+      "rating": 5.0,
+      "reviewCount": 42,
+      "sold": 512,
+      "image": "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=80&h=80&fit=crop"
+    },
+    {
+      "id": 5,
+      "name": "Suv o'tkazmaydigan Kurtka",
+      "rating": 4.6,
+      "reviewCount": 88,
+      "sold": 489,
+      "image": "https://images.unsplash.com/photo-1544923246-77307dd654cb?w=80&h=80&fit=crop"
+    },
+    {
+      "id": 6,
+      "name": "Yozgi Shlyapa (Uniseks)",
+      "rating": 4.9,
+      "reviewCount": 106,
+      "sold": 322,
+      "image": "https://images.unsplash.com/photo-1521369909029-2afed882baee?w=80&h=80&fit=crop"
+    }
+  ],
+  "recentOrders": [
+    {
+      "id": "ORD-5524",
+      "customer": "Umidbek Ismoilov",
+      "avatar": null,
+      "time": "2 soat oldin",
+      "status": "new",
+      "statusLabel": "Yangi"
+    },
+    {
+      "id": "ORD-5523",
+      "customer": "Dilnoza Rasulova",
+      "avatar": null,
+      "time": "5 soat oldin",
+      "status": "on_the_way",
+      "statusLabel": "Yo'lda"
+    },
+    {
+      "id": "ORD-5522",
+      "customer": "Bekzod Karimov",
+      "avatar": null,
+      "time": "Kecha",
+      "status": "delivered",
+      "statusLabel": "Yopilgan"
+    },
+    {
+      "id": "ORD-5521",
+      "customer": "Zulayho Ahmedova",
+      "avatar": null,
+      "time": "Kecha",
+      "status": "new",
+      "statusLabel": "Yangi"
+    }
+  ]
+}
