@@ -88,7 +88,7 @@ export default function Home() {
         </Card>
       </div>
 
-      {/* ── FAB: Yangi mahsulot ── */}
+      {/* Yangi mahsulot */}
       <Button
         className="fixed bottom-6 right-6 bg-primary hover:opacity-90 text-primary-foreground shadow-lg gap-2 h-11 px-5 rounded-full font-semibold text-sm"
       >
