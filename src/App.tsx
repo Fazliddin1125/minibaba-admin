@@ -16,6 +16,7 @@ function App() {
 
         {/* Boshlang'ich sahifa - loginga yo'naltiradi */}
         <Route path="/" element={<Navigate to="/login" replace />} />
+        
 
         {/* Auth sahifalari */}
         <Route path="/login" element={<LoginPage />} />
