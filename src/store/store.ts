@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import mockData from "./pages/Home/mock.json";
+import mockData from "../pages/Home/mock.json";
 
 export type OrderStatus = "new" | "on_the_way" | "delivered" | "cancelled";
 

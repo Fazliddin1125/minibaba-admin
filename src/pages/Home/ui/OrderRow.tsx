@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
-import type { Order } from "@/store";
+import type { Order } from "@/store/store";
+import { t } from "i18next";
 import { BadgeCheck, CheckCircle2, Clock, type LucideIcon } from "lucide-react";
 
 const statusConfig: Record<
@@ -8,22 +9,22 @@ const statusConfig: Record<
   { label: string; className: string; icon: LucideIcon }
 > = {
   new: {
-    label: "Yangi",
+    label: "new",
     className: "bg-[#DCFCE7] text-[#15803D] border-[#7ee1a2]",
     icon: BadgeCheck,
   },
   on_the_way: {
-    label: "Yo'lda",
+    label: "on_the_way",
     className: "bg-blue-100 text-blue-600 border-blue-200",
     icon: Clock,
   },
   delivered: {
-    label: "Yopilgan",
+    label: "delivered",
     className: "bg-gray-100 text-gray-500 border-gray-200",
     icon: CheckCircle2,
   },
   cancelled: {
-    label: "Bekor qilingan",
+    label: "cancelled",
     className: "bg-red-100 text-red-500 border-red-200",
     icon: CheckCircle2,
   },
@@ -61,7 +62,7 @@ function OrderRow({ order }: { order: Order }) {
           cfg.className
         )}
       >
-        {cfg.label}
+        {t(cfg.label)}
       </span>
     </div>
   );

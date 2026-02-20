@@ -7,7 +7,7 @@
   "stats": [
     {
       "id": "total_products",
-      "label": "Jami mahsulotlar",
+      "label": "total_products",
       "value": "1,284",
       "icon": "Package",
       "color": "blue",
@@ -16,7 +16,7 @@
     },
     {
       "id": "active_products",
-      "label": "Faol mahsulotlar",
+      "label": "active_products",
       "value": "48",
       "icon": "ShoppingBag",
       "color": "green",
@@ -25,16 +25,16 @@
     },
     {
       "id": "new_messages",
-      "label": "Yangi xabarlar",
+      "label": "new_messages",
       "value": "12",
       "icon": "MessageSquare",
       "color": "orange",
-      "trend": null,
-      "trendValue": "5 yangi"
+      "trend": "new_msg",
+      "trendValue": "5"
     },
     {
       "id": "total_revenue",
-      "label": "Jami daromad",
+      "label": "total_income",
       "value": "45,800,000",
       "suffix": "UZS",
       "icon": "Wallet",
@@ -100,7 +100,7 @@
       "avatar": null,
       "time": "2 soat oldin",
       "status": "new",
-      "statusLabel": "Yangi"
+      "statusLabel": "new"
     },
     {
       "id": "ORD-5523",
@@ -108,7 +108,7 @@
       "avatar": null,
       "time": "5 soat oldin",
       "status": "on_the_way",
-      "statusLabel": "Yo'lda"
+      "statusLabel": "on_the_way"
     },
     {
       "id": "ORD-5522",
@@ -116,7 +116,7 @@
       "avatar": null,
       "time": "Kecha",
       "status": "delivered",
-      "statusLabel": "Yopilgan"
+      "statusLabel": "delivered"
     },
     {
       "id": "ORD-5521",
@@ -124,7 +124,7 @@
       "avatar": null,
       "time": "Kecha",
       "status": "new",
-      "statusLabel": "Yangi"
+      "statusLabel": "new"
     }
   ]
 }

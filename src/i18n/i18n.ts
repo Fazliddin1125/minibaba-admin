@@ -38,6 +38,30 @@ const resources = {
       tech_support: "Texnik boshqaruv",
       hero_text: "O'zbekistondagi eng yirik marketplace boshqaruv tizimi",
       hero_desc: "Biznesingizni samarali boshqaring, buyurtmalarni kuzatib boring va savdolaringizni yangi bosqichga olib chiging.",
+      // --------- Home Page (Pratov) ----------
+      // Home page -> Header
+      welcome: "Xush kelibsiz",
+      home_header_description: "Bugungi ko'rsatkichlaringiz va eng ko'p sotilgan mahsulotlaringiz.", 
+      // Home page -> Stats
+      total_products: "Jami mahsulotlar",
+      active_products: "Faol mahsulotlar",
+      new_messages: "Yangi xabarlar",
+      total_income: "Jami daromad",
+      // Home page -> Top Products
+      top_products: "Top mahsulotlar",
+      top_products_description: "Eng yuqori sotuv ko'rsatkichiga ega tovarlar",
+      see_all: "Barchasini ko'rish",
+      x_comment: "ta sharx",
+      x_sold: "ta sotilgan",
+      // Home page -> Recent Orders
+      recent_orders: "So'nggi buyurtmalar",
+      all: "Barchasi",
+      download_report: "Hisobotni yuklab olish",
+      new_product: "Yangi mahsulot",
+      new: "Yangi",
+      on_the_way: "Yo'lda",
+      delivered: "Yopilgan",
+      canceled: "Bekor qilingan"
     },
   },
   ru: {
@@ -76,6 +100,30 @@ const resources = {
       tech_support: "Техподдержка",
       hero_text: "Крупнейшая система управления маркетплейсом в Узбекистане",
       hero_desc: "Эффективно управляйте бизнесом, отслеживайте заказы и выводите продажи на новый уровень.",
+      // --------- Home Page (Pratov) ----------
+      // Home page -> Header
+      welcome: "Добро пожаловать",
+      home_header_description: "Ваши показатели за сегодня и самые продаваемые товары.", 
+      // Home page -> Stats
+      total_products: "Всего товаров",
+      active_products: "Активные товары",
+      new_messages: "Новые сообщения",
+      total_income: "Общий доход",
+      // Home page -> Top Products
+      top_products: "Топ товары",
+      top_products_description: "Товары с самыми высокими показателями продаж",
+      see_all: "Смотреть все",
+      x_comment: "отзывов",
+      x_sold: "продано",
+      // Home page -> Recent Orders
+      recent_orders: "Последние заказы",
+      all: "Все",
+      download_report: "Скачать отчет",
+      new_product: "Новый продукт",
+      new: "Новый",
+      on_the_way: "В пути",
+      delivered: "Доставлен",
+      canceled: "Отменен"
     },
   },
   en: {
@@ -114,6 +162,30 @@ const resources = {
       tech_support: "Tech support",
       hero_text: "Uzbekistan's largest marketplace management system",
       hero_desc: "Efficiently manage your business, track orders and take your sales to the next level.",
+      // --------- Home Page (Pratov) ----------
+      // Home page -> Header
+      welcome: "Welcome",
+      home_header_description: "Your indicators for today and your best-selling products.", 
+      // Home page -> Stats
+      total_products: "Total products",
+      active_products: "Active products",
+      new_messages: "New messages",
+      total_income: "Total income",
+      // Home page -> Top Products
+      top_products: "Top products",
+      top_products_description: "Goods with the highest sales performance",
+      see_all: "See all",
+      x_comment: "reviews",
+      x_sold: "sold",
+      // Home page -> Recent Orders
+      recent_orders: "Recent orders",
+      all: "All",
+      download_report: "Download report",
+      new_product: "New product",
+      new: "New",
+      on_the_way: "On the way",
+      delivered: "Delivered",
+      canceled: "Canceled"
     },
   },
 };

@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { type Stat } from "@/store";
+import { type Stat } from "@/store/store";
+import { t } from "i18next";
 import { MessageSquare, Package, ShoppingBag, Wallet, type LucideIcon } from "lucide-react";
 
 const iconMap: Record<string, LucideIcon> = {
@@ -65,15 +66,17 @@ function StatCard({ stat }: { stat: Stat }) {
               "h-6 flex justify-center items-center text-xs font-semibold px-2.5 py-0.5 rounded-full",
               stat.trend === "up"
                 ? "bg-green-100 text-green-600"
-                : cn(colors.badge, colors.badgeText)
+                : stat.trend === "new_msg"
+                ? cn(colors.badge, colors.badgeText) :""
             )}
           >
             {stat.trendValue}
+            {stat.trend === "new_msg" && " " + t("new").toLowerCase()}
           </span>
         )}
       </div>
         {/* Label */}
-        <p className="text-sm text-gray-500 mb-1">{stat.label}</p>
+        <p className="text-sm text-gray-500 mb-1">{t(stat.label)}</p>
 
         {/* Value */}
         <p className="text-2xl font-bold text-gray-900 leading-tight">
