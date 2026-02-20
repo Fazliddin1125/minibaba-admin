@@ -24,6 +24,7 @@ const languages = [
   { code: "uz", label: "O'zbekcha" },
   { code: "ru", label: "Русский" },
   { code: "en", label: "English" },
+  
 ];
 
 export default function LoginPage() {

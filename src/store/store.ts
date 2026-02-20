@@ -12,6 +12,7 @@ export interface Stat {
   color: "blue" | "green" | "orange" | "yellow";
   trend: string | null;
   trendValue: string | null;
+  
 }
 
 export interface Product {

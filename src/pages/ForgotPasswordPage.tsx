@@ -128,6 +128,7 @@ export default function ForgotPasswordPage() {
                   {lang.label}
                 </button>
               ))}
+              
             </div>
 
             {!submitted ? (
