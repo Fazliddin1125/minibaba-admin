@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
-import type { Order } from "@/store/store";
+import type { Order } from "@/store/dashboardStore";
 import { t } from "i18next";
 import { BadgeCheck, CheckCircle2, Clock, type LucideIcon } from "lucide-react";
 
