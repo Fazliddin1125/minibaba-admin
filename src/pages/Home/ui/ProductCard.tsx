@@ -1,5 +1,5 @@
 import { Star } from "lucide-react";
-import { type Product } from "../../../store/store";
+import { type Product } from "../../../store/dashboardStore";
 import { t } from "i18next";
 
 

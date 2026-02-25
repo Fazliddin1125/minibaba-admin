@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { type Stat } from "@/store/store";
+import { type Stat } from "@/store/dashboardStore";
 import { t } from "i18next";
 import { MessageSquare, Package, ShoppingBag, Wallet, type LucideIcon } from "lucide-react";
 

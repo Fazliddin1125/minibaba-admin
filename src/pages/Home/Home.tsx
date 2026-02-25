@@ -1,15 +1,17 @@
 import { Download, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useDashboardStore} from "../../store/store";
+import { useDashboardStore} from "../../store/dashboardStore";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ProductCard from "./ui/ProductCard";
 import StatCard from "./ui/StatCard";
 import OrderRow from "./ui/OrderRow";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const { user, stats, topProducts, recentOrders } = useDashboardStore();
   const { t } = useTranslation();
+  const navigate = useNavigate()
 
   return (
     <div className="min-h-screen bg-[--background] font-sans">
@@ -91,7 +93,8 @@ export default function Home() {
       </div>
 
       {/* Yangi mahsulot */}
-      <Button
+      <Button 
+        onClick={()=>{navigate("/add-product")}}
         className="fixed bottom-6 right-6 bg-primary hover:opacity-90 text-primary-foreground shadow-lg gap-2 h-11 px-5 rounded-full font-semibold text-sm"
       >
         <Plus className="w-4 h-4" />
