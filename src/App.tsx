@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home/Home";
 import Products from "./pages/Products";
@@ -15,7 +15,6 @@ function App() {
       <Routes>
 
         {/* Boshlang'ich sahifa - loginga yo'naltiradi */}
-        <Route path="/" element={<Navigate to="/login" replace />} />
         
 
         {/* Auth sahifalari */}

@@ -15,7 +15,6 @@ const resources = {
       forgot_password: "Parolni unutdingizmi?",
       login_btn: "Kirish",
       logging_in: "Kirish...",
-      // Forgot password
       forgot_title: "Parolni qayta tiklash",
       forgot_subtitle: "Elektron pochtangizni kiriting va biz sizga parolni tiklash havolasini yuboramiz",
       email_field: "Elektron pochta",
@@ -23,37 +22,30 @@ const resources = {
       send_btn: "Yuborish",
       sending: "Yuborilmoqda...",
       back_to_login: "Kirish sahifasiga qaytish",
-      // Success
       success_title: "Havola yuborildi!",
       success_subtitle: "Parolni tiklash havolasi quyidagi emailga yuborildi:",
       success_note: "Emailingizni tekshiring. Agar kelmagan bo'lsa, spam papkasini ham ko'ring.",
-      // Validation
       email_required: "Email majburiy",
       email_invalid: "Email noto'g'ri formatda",
       password_required: "Parol majburiy",
       password_min: "Parol kamida 6 ta belgi bo'lishi kerak",
-      // Common
       copyright: "Copyright © 2024 Minibaba. Barcha huquqlar himoyalangan",
       safe_system: "Xavfsiz tizim",
       tech_support: "Texnik boshqaruv",
       hero_text: "O'zbekistondagi eng yirik marketplace boshqaruv tizimi",
       hero_desc: "Biznesingizni samarali boshqaring, buyurtmalarni kuzatib boring va savdolaringizni yangi bosqichga olib chiging.",
-      // --------- Home Page (Pratov) ----------
-      // Home page -> Header
+      // Home
       welcome: "Xush kelibsiz",
-      home_header_description: "Bugungi ko'rsatkichlaringiz va eng ko'p sotilgan mahsulotlaringiz.", 
-      // Home page -> Stats
+      home_header_description: "Bugungi ko'rsatkichlaringiz va eng ko'p sotilgan mahsulotlaringiz.",
       total_products: "Jami mahsulotlar",
       active_products: "Faol mahsulotlar",
       new_messages: "Yangi xabarlar",
       total_income: "Jami daromad",
-      // Home page -> Top Products
       top_products: "Top mahsulotlar",
       top_products_description: "Eng yuqori sotuv ko'rsatkichiga ega tovarlar",
       see_all: "Barchasini ko'rish",
       x_comment: "ta sharx",
       x_sold: "ta sotilgan",
-      // Home page -> Recent Orders
       recent_orders: "So'nggi buyurtmalar",
       all: "Barchasi",
       download_report: "Hisobotni yuklab olish",
@@ -61,7 +53,36 @@ const resources = {
       new: "Yangi",
       on_the_way: "Yo'lda",
       delivered: "Yopilgan",
-      canceled: "Bekor qilingan"
+      canceled: "Bekor qilingan",
+      // Navbar
+      search: "Qidiruv...",
+      products: "Mahsulotlar",
+      // Orders page
+      orders_title: "Buyurtmalar Boshqaruvi",
+      orders_subtitle: "Ulgurji savdo buyurtmalarini kuzatib boring",
+      export_excel: "Eksport (Excel)",
+      orders_tab_all: "Barchasi",
+      orders_tab_new: "Yangi",
+      orders_tab_accepted: "Qabul qilindi",
+      orders_tab_delivering: "Yetkazilmoqda",
+      orders_tab_done: "Yakunlandi",
+      stat_new: "Jami yangi",
+      stat_accepted: "Qabul qilindi",
+      stat_delivering: "Yetkazilmoqda",
+      stat_done: "Yakunlandi",
+      col_id: "Buyurtma ID",
+      col_client: "Mijoz / Korxona",
+      col_date: "Sana",
+      col_amount: "Summa",
+      col_status: "Holat",
+      col_action: "Amal",
+      details: "Tafsilotlar",
+      no_orders: "Buyurtmalar topilmadi",
+      showing: "Jami {{total}} ta buyurtmadan {{from}}–{{to}} tasi ko'rsatilyapti",
+      status_new: "YANGI",
+      status_accepted: "QABUL QILINDI",
+      status_delivering: "YETKAZILMOQDA",
+      status_done: "YAKUNLANDI",
     },
   },
   ru: {
@@ -77,7 +98,6 @@ const resources = {
       forgot_password: "Забыли пароль?",
       login_btn: "Войти",
       logging_in: "Вход...",
-      // Forgot password
       forgot_title: "Восстановление пароля",
       forgot_subtitle: "Введите вашу почту и мы отправим ссылку для восстановления пароля",
       email_field: "Электронная почта",
@@ -85,37 +105,30 @@ const resources = {
       send_btn: "Отправить",
       sending: "Отправка...",
       back_to_login: "Вернуться к входу",
-      // Success
       success_title: "Ссылка отправлена!",
       success_subtitle: "Ссылка для восстановления пароля отправлена на:",
       success_note: "Проверьте вашу почту. Если письмо не пришло, проверьте папку спам.",
-      // Validation
       email_required: "Email обязателен",
       email_invalid: "Неверный формат email",
       password_required: "Пароль обязателен",
       password_min: "Пароль должен содержать не менее 6 символов",
-      // Common
       copyright: "Copyright © 2024 Minibaba. Все права защищены",
       safe_system: "Безопасная система",
       tech_support: "Техподдержка",
       hero_text: "Крупнейшая система управления маркетплейсом в Узбекистане",
       hero_desc: "Эффективно управляйте бизнесом, отслеживайте заказы и выводите продажи на новый уровень.",
-      // --------- Home Page (Pratov) ----------
-      // Home page -> Header
+      // Home
       welcome: "Добро пожаловать",
-      home_header_description: "Ваши показатели за сегодня и самые продаваемые товары.", 
-      // Home page -> Stats
+      home_header_description: "Ваши показатели за сегодня и самые продаваемые товары.",
       total_products: "Всего товаров",
       active_products: "Активные товары",
       new_messages: "Новые сообщения",
       total_income: "Общий доход",
-      // Home page -> Top Products
       top_products: "Топ товары",
       top_products_description: "Товары с самыми высокими показателями продаж",
       see_all: "Смотреть все",
       x_comment: "отзывов",
       x_sold: "продано",
-      // Home page -> Recent Orders
       recent_orders: "Последние заказы",
       all: "Все",
       download_report: "Скачать отчет",
@@ -123,7 +136,36 @@ const resources = {
       new: "Новый",
       on_the_way: "В пути",
       delivered: "Доставлен",
-      canceled: "Отменен"
+      canceled: "Отменен",
+      // Navbar
+      search: "Поиск...",
+      products: "Товары",
+      // Orders page
+      orders_title: "Управление заказами",
+      orders_subtitle: "Отслеживайте заказы оптовой торговли",
+      export_excel: "Экспорт (Excel)",
+      orders_tab_all: "Все",
+      orders_tab_new: "Новые",
+      orders_tab_accepted: "Принятые",
+      orders_tab_delivering: "Доставляется",
+      orders_tab_done: "Завершённые",
+      stat_new: "Всего новых",
+      stat_accepted: "Принятые",
+      stat_delivering: "Доставляется",
+      stat_done: "Завершённые",
+      col_id: "ID заказа",
+      col_client: "Клиент / Компания",
+      col_date: "Дата",
+      col_amount: "Сумма",
+      col_status: "Статус",
+      col_action: "Действие",
+      details: "Подробнее",
+      no_orders: "Заказы не найдены",
+      showing: "Показано {{from}}–{{to}} из {{total}} заказов",
+      status_new: "НОВЫЙ",
+      status_accepted: "ПРИНЯТ",
+      status_delivering: "ДОСТАВЛЯЕТСЯ",
+      status_done: "ЗАВЕРШЁН",
     },
   },
   en: {
@@ -139,7 +181,6 @@ const resources = {
       forgot_password: "Forgot password?",
       login_btn: "Sign In",
       logging_in: "Signing in...",
-      // Forgot password
       forgot_title: "Reset Password",
       forgot_subtitle: "Enter your email and we will send you a password reset link",
       email_field: "Email address",
@@ -147,37 +188,30 @@ const resources = {
       send_btn: "Send",
       sending: "Sending...",
       back_to_login: "Back to login",
-      // Success
       success_title: "Link sent!",
       success_subtitle: "Password reset link has been sent to:",
       success_note: "Check your email. If you didn't receive it, check your spam folder.",
-      // Validation
       email_required: "Email is required",
       email_invalid: "Invalid email format",
       password_required: "Password is required",
       password_min: "Password must be at least 6 characters",
-      // Common
       copyright: "Copyright © 2024 Minibaba. All rights reserved",
       safe_system: "Secure system",
       tech_support: "Tech support",
       hero_text: "Uzbekistan's largest marketplace management system",
       hero_desc: "Efficiently manage your business, track orders and take your sales to the next level.",
-      // --------- Home Page (Pratov) ----------
-      // Home page -> Header
+      // Home
       welcome: "Welcome",
-      home_header_description: "Your indicators for today and your best-selling products.", 
-      // Home page -> Stats
+      home_header_description: "Your indicators for today and your best-selling products.",
       total_products: "Total products",
       active_products: "Active products",
       new_messages: "New messages",
       total_income: "Total income",
-      // Home page -> Top Products
       top_products: "Top products",
       top_products_description: "Goods with the highest sales performance",
       see_all: "See all",
       x_comment: "reviews",
       x_sold: "sold",
-      // Home page -> Recent Orders
       recent_orders: "Recent orders",
       all: "All",
       download_report: "Download report",
@@ -185,7 +219,36 @@ const resources = {
       new: "New",
       on_the_way: "On the way",
       delivered: "Delivered",
-      canceled: "Canceled"
+      canceled: "Canceled",
+      // Navbar
+      search: "Search...",
+      products: "Products",
+      // Orders page
+      orders_title: "Orders Management",
+      orders_subtitle: "Track wholesale trade orders",
+      export_excel: "Export (Excel)",
+      orders_tab_all: "All",
+      orders_tab_new: "New",
+      orders_tab_accepted: "Accepted",
+      orders_tab_delivering: "Delivering",
+      orders_tab_done: "Completed",
+      stat_new: "Total new",
+      stat_accepted: "Accepted",
+      stat_delivering: "Delivering",
+      stat_done: "Completed",
+      col_id: "Order ID",
+      col_client: "Client / Company",
+      col_date: "Date",
+      col_amount: "Amount",
+      col_status: "Status",
+      col_action: "Action",
+      details: "Details",
+      no_orders: "No orders found",
+      showing: "Showing {{from}}–{{to}} of {{total}} orders",
+      status_new: "NEW",
+      status_accepted: "ACCEPTED",
+      status_delivering: "DELIVERING",
+      status_done: "COMPLETED",
     },
   },
 };

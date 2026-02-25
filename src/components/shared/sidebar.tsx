@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 const menuItems = [
   { icon: LayoutDashboard, label: "Asosiy panel", href: "/" },
   { icon: Box, label: "Mahsulotlar", href: "/dashboard/products" },
-  { icon: ShoppingCart, label: "Buyurtmalar", href: "/dashboard/orders" },
+  { icon: ShoppingCart, label: "Buyurtmalar", href: "/orders" },
   { icon: MessageSquare, label: "Xabarlar", href: "/dashboard/messages" },
   { icon: BarChart3, label: "Statistika", href: "/dashboard/statistics" },
 ];
