@@ -1,12 +1,13 @@
 import { Bell, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { useSettingsStore } from "../../../store/settingsStore";
+import i18n from "@/i18n/i18n";
 
 const navItems = [
-  { label: "Asosiy", href: "/" },
-  { label: "Buyurtmalar", href: "/orders" },
-  { label: "Mahsulotlar", href: "/products" },
-  { label: "Sozlamalar", href: "/settings", active: true },
+  { label: i18n.t("home"), href: "/" },
+  { label: i18n.t("orders"), href: "/orders" },
+  { label: i18n.t("products"), href: "/products" },
+  { label: i18n.t("settings"), href: "/settings", active: true },
 ];
 
 export default function Header() {

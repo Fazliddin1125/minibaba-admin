@@ -1,6 +1,7 @@
 import { FileText, Award, Plus, Info, CheckCircle2, X } from "lucide-react";
 import { useRef } from "react";
 import { useSettingsStore } from "../../../store/settingsStore";
+import i18n from "@/i18n/i18n";
 
 const iconMap: Record<string, React.ReactNode> = {
   "1": <FileText size={18} style={{ color: "var(--primary)" }} />,
@@ -27,7 +28,7 @@ export default function BusinessDocumentsCard() {
   return (
     <div className="bg-card rounded-xl border border-border p-5 shadow-sm">
       <h3 className="text-base font-semibold text-foreground mb-4">
-        Biznes hujjatlar
+        {i18n.t("business_documents")}
       </h3>
 
       {/* Dokumetnlar royxati */}
@@ -58,7 +59,7 @@ export default function BusinessDocumentsCard() {
                 <CheckCircle2 size={20} className="text-green-500 shrink-0" />
               ) : (
                 <span className="text-xs text-muted-foreground px-2 py-0.5 bg-secondary rounded-full">
-                  Tekshirilmoqda
+                  {i18n.t("under_review")}
                 </span>
               )}
               <button
@@ -78,14 +79,14 @@ export default function BusinessDocumentsCard() {
         className="w-full h-11 flex items-center justify-center gap-2 rounded-lg border border-dashed border-border text-sm text-muted-foreground hover:border-primary hover:text-primary transition-colors mb-3"
       >
         <Plus size={16} />
-        Hujjat qo'shish
+        {i18n.t("add_document")}
       </button>
 
       {/* Ogohlantirish */}
       <div className="flex items-start gap-2.5 p-3 rounded-lg bg-blue-50 border border-blue-100">
         <Info size={15} className="text-blue-500 mt-0.5 shrink-0" />
         <p className="text-xs text-blue-700 leading-relaxed">
-          Hujjatlar faqat platforma ma'muriyati uchun ko'rinadi va xavfsiz saqlanadi.
+          {i18n.t("document_rules")}
         </p>
       </div>
 

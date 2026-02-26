@@ -54,7 +54,7 @@ interface FieldConfig {
 
 const FIELDS: FieldConfig[] = [
   { name: "material",       label: i18n.t("material"),          type: "text",   placeholder: i18n.t("material_placeholder")  },
-  { name: "akumlyator",     label: i18n.t("accumulator_power"), type: "number", placeholder: i18n.t("accumulator_power_placeholder"),  suffix: i18n.t("accumulatory_power_suffix") },
+  { name: "akumlyator",     label: i18n.t("accumulator_power"), type: "number", placeholder: i18n.t("accumulator_power_placeholder"),  suffix: i18n.t("accumulator_power_suffix") },
   { name: "uzunligi",       label: i18n.t("distance"),          type: "number", placeholder: i18n.t("distance_placeholder"),   suffix: i18n.t("distance_suffix")  },
   { name: "standart",       label: i18n.t("standart"),          type: "text",   placeholder: i18n.t("standart_placeholder") },
   { name: "brend",          label: i18n.t("brand"),             type: "text",   placeholder: i18n.t("brand_placeholder") },

@@ -2,8 +2,10 @@ import { cn } from "@/lib/utils";
 import { useAddProductStore } from "@/store/addProductStore";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import type { TabKey } from "@/store/addProductStore";
+import type { TabProps } from "../Tabs/BasicTab";
+import i18n from "@/i18n/i18n";
 
-// ─── Tab order ────────────────────────────────────────────────────────────────
+// Tab order 
 
 const TAB_ORDER: TabKey[] = [
   "basic",
@@ -13,17 +15,9 @@ const TAB_ORDER: TabKey[] = [
   "variants",
 ];
 
-// ─── Props ────────────────────────────────────────────────────────────────────
+// Component 
 
-interface FooterNavigationProps {
-  // Har doim majburiy — form submit ham shu orqali boshqariladi
-  onNext: () => void;
-  onSaveDraft: () => void;
-}
-
-// ─── Component ────────────────────────────────────────────────────────────────
-
-const FooterNavigation = ({ onNext, onSaveDraft }: FooterNavigationProps) => {
+const FooterNavigation = ({ onNext, onSaveDraft }: TabProps) => {
   const { activeTab, setActiveTab } = useAddProductStore();
 
   const currentIndex = TAB_ORDER.indexOf(activeTab);
@@ -48,7 +42,7 @@ const FooterNavigation = ({ onNext, onSaveDraft }: FooterNavigationProps) => {
         )}
       >
         <ArrowLeft size={16} />
-        Oldingi bo'lim
+        {i18n.t("prev_tab")}
       </button>
 
       {/* O'ng tugmalar */}
@@ -64,7 +58,7 @@ const FooterNavigation = ({ onNext, onSaveDraft }: FooterNavigationProps) => {
             "hover:bg-muted transition-colors"
           )}
         >
-          Qoralama sifatida saqlash
+          {i18n.t("save_as_draft")}
         </button>
 
         {/* Keyingi — har doim type="button", form submit tabning o'zida boshqariladi */}
@@ -78,7 +72,7 @@ const FooterNavigation = ({ onNext, onSaveDraft }: FooterNavigationProps) => {
             activeTab==="variants" && "cursor-none transition-none active:scale-none hover:opacity-70 opacity-70"
           )}
         >
-          Keyingi bo'lim
+          {i18n.t("next_tab")}
           <ArrowRight size={16} />
         </button>
 

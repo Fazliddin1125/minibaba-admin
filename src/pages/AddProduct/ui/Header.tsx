@@ -1,17 +1,18 @@
 import { NavLink } from "react-router-dom";
 import { cn } from "@/lib/utils";
-
-// Nav link config
-
-const NAV_LINKS = [
-  { label: "Asosiy", to: "/home" },
-  { label: "Mahsulotlar", to: "/products" },
-  { label: "Buyurtmalar", to: "/orders" },
-];
+import i18n from "@/i18n/i18n";
 
 // Asosiy component
 
 export function Header() {
+
+  // Nav link config
+  const NAV_LINKS = [
+    { label: i18n.t("home"), to: "/home" },
+    { label: i18n.t("products"), to: "/products" },
+    { label: i18n.t("orders"), to: "/orders" },
+  ];
+
   return (
     <header className="w-full bg-card border-b border-border h-14 flex items-center px-6 shrink-0">
       <div className="w-full max-w-7xl mx-auto flex items-center justify-between gap-6">

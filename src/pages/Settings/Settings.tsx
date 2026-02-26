@@ -11,6 +11,7 @@ import StoreBannerCard from "./ui/StoreBannerCard";
 import AccountStatusCard from "./ui/AccountStatusCard";
 import BusinessDocumentsCard from "./ui/BusinessDocumentsCard";
 import WarehouseLocationCard from "./ui/WareHouseLocationCard";
+import i18n from "@/i18n/i18n";
 
 export default function Settings() {
   const { formData, save, isSaving, isDirty, reset } = useSettingsStore();
@@ -53,11 +54,10 @@ export default function Settings() {
         <div className="flex items-center md:items-end flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-8">
           <div>
             <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1">
-              Do'kon sozlamalari
+              {i18n.t("store_settings")}
             </h1>
             <p className="text-sm text-muted-foreground max-w-sm">
-              Do'koningiz ma'lumotlarini boshqaring, brendingizni yaxshilang va
-              xalqaro xaridorlar ishonchini oshiring.
+              {i18n.t("store_settings_description")}
             </p>
           </div>
 
@@ -65,7 +65,7 @@ export default function Settings() {
           <div className="flex items-center gap-3 shrink-0">
             <button className="h-10 px-4 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-secondary transition-colors flex items-center gap-2">
               <Eye size={15} />
-              Profilni ko'rish
+              {i18n.t("see_profile")}
             </button>
             <button
               onClick={handleSave}
@@ -76,12 +76,12 @@ export default function Settings() {
               {isSaving ? (
                 <>
                   <Loader2 size={15} className="animate-spin" />
-                  Saqlanmoqda...
+                  {i18n.t("saving")}
                 </>
               ) : saveSuccess ? (
-                <>✓ Saqlandi</>
+                <>✓ {i18n.t("saved")}</>
               ) : (
-                "Saqlash"
+                i18n.t("save")
               )}
             </button>
           </div>
@@ -91,13 +91,13 @@ export default function Settings() {
         {isDirty && !isSaving && (
           <div className="mb-5 flex items-center justify-between gap-3 px-4 py-3 rounded-lg bg-amber-50 border border-amber-200">
             <p className="text-sm text-amber-700">
-              Saqlanmagan o'zgarishlar mavjud
+              {i18n.t("there_are_unsaved_changes")}
             </p>
             <button
               onClick={reset}
               className="text-sm font-medium text-amber-700 hover:text-amber-900 underline"
             >
-              Bekor qilish
+              {i18n.t("cancel")}
             </button>
           </div>
         )}

@@ -326,7 +326,7 @@ export default function VariantsTab({ onNext, onSaveDraft }: TabProps) {
               onChange={toggleAll}
               className="w-4 h-4 rounded border-border accent-primary cursor-pointer"
             />
-            {["Rasm", "Rangi", "O'lchami", "Zaxira (QTY)", "Bazaviy Narx", "Holat", ""].map((h) => (
+            {[i18n.t("image"), i18n.t("color"), i18n.t("size"), i18n.t("stock")+" (QTY)", i18n.t("base_price"), i18n.t("condition"), ""].map((h) => (
               <span key={h} className="text-xs font-semibold text-muted-foreground">{h}</span>
             ))}
           </div>
@@ -347,9 +347,9 @@ export default function VariantsTab({ onNext, onSaveDraft }: TabProps) {
                   {/* Image */}
                   <ImageCell preview={v.imagePreview} onChange={(f) => handleImage(v.id, f)} />
                   {/* Color */}
-                  <input value={v.color} onChange={(e) => updateVariant(v.id, { color: e.target.value })} placeholder="Rang" className={inputCls} />
+                  <input value={v.color} onChange={(e) => updateVariant(v.id, { color: e.target.value })} placeholder={i18n.t("color")} className={inputCls} />
                   {/* Size */}
-                  <input value={v.size} onChange={(e) => updateVariant(v.id, { size: e.target.value })} placeholder="O'lcham" className={inputCls} />
+                  <input value={v.size} onChange={(e) => updateVariant(v.id, { size: e.target.value })} placeholder={i18n.t("size")} className={inputCls} />
                   {/* Stock */}
                   <input type="number" value={v.stock} onChange={(e) => updateVariant(v.id, { stock: e.target.value })} placeholder="0" className={inputCls} />
                   {/* Price */}

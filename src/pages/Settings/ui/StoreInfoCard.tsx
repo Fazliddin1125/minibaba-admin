@@ -1,6 +1,7 @@
 import { Camera, MapPin, CheckCircle } from "lucide-react";
 import { useRef } from "react";
 import { useSettingsStore } from "../../../store/settingsStore";
+import i18n from "@/i18n/i18n";
 
 interface FieldError {
   storeName?: string;
@@ -78,7 +79,7 @@ export default function StoreInfoCard({ errors }: StoreInfoCardProps) {
             {isVerified && (
               <span className="flex items-center gap-1 px-2 py-0.5 bg-green-50 border border-green-200 rounded-full text-green-700 text-xs font-semibold shrink-0">
                 <CheckCircle size={11} />
-                TASDIQLANGAN
+                {i18n.t("verified")}
               </span>
             )}
           </div>
@@ -98,7 +99,7 @@ export default function StoreInfoCard({ errors }: StoreInfoCardProps) {
           {/* Do'kon nomi */}
           <div className="space-y-1.5">
             <label className="text-sm font-medium text-foreground">
-              Do'kon nomi
+              {i18n.t("store_name")}
             </label>
             <input
               type="text"
@@ -107,7 +108,7 @@ export default function StoreInfoCard({ errors }: StoreInfoCardProps) {
               className={`w-full h-10 px-3 rounded-lg border text-sm bg-background text-foreground outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/20 ${
                 errors?.storeName ? "border-destructive" : "border-input"
               }`}
-              placeholder="Do'kon nomini kiriting"
+              placeholder={i18n.t("enter_store_name")}
             />
             {errors?.storeName && (
               <p className="text-xs text-destructive">{errors.storeName}</p>
@@ -117,7 +118,7 @@ export default function StoreInfoCard({ errors }: StoreInfoCardProps) {
           {/* Joylashuv */}
           <div className="space-y-1.5">
             <label className="text-sm font-medium text-foreground">
-              Joylashuv
+              {i18n.t("location")}
             </label>
             <div className="relative">
               <MapPin
@@ -131,7 +132,7 @@ export default function StoreInfoCard({ errors }: StoreInfoCardProps) {
                 className={`w-full h-10 pl-9 pr-3 rounded-lg border text-sm bg-background text-foreground outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/20 ${
                   errors?.location ? "border-destructive" : "border-input"
                 }`}
-                placeholder="Joylashuvni kiriting"
+                placeholder={i18n.t("enter_location")}
               />
             </div>
             {errors?.location && (
@@ -143,7 +144,7 @@ export default function StoreInfoCard({ errors }: StoreInfoCardProps) {
         {/* Do'kon tavsifi */}
         <div className="space-y-1.5">
           <label className="text-sm font-medium text-foreground">
-            Do'kon tavsifi
+            {i18n.t("store_description")}
           </label>
           <textarea
             value={formData.description}
@@ -152,7 +153,7 @@ export default function StoreInfoCard({ errors }: StoreInfoCardProps) {
             className={`w-full px-3 py-2.5 rounded-lg border text-sm bg-background text-foreground outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/20 resize-none ${
               errors?.description ? "border-destructive" : "border-input"
             }`}
-            placeholder="Do'koningiz haqida qisqacha ma'lumot..."
+            placeholder={i18n.t("briefly_about_store")}
           />
           <div className="flex justify-between items-center">
             {errors?.description ? (

@@ -1,3 +1,4 @@
+import i18n from "@/i18n/i18n";
 import { ExternalLink } from "lucide-react";
 
 export default function WarehouseLocationCard() {
@@ -9,7 +10,7 @@ export default function WarehouseLocationCard() {
       {/* Joylashuv cardi headeri */}
       <div className="px-5 pt-5 pb-3">
         <h3 className="text-base font-semibold text-foreground">
-          Ombor joylashuvi
+          {i18n.t("store_location")}
         </h3>
       </div>
 
@@ -44,7 +45,7 @@ export default function WarehouseLocationCard() {
           className="w-full h-10 flex items-center justify-center gap-2 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-secondary transition-colors"
         >
           <ExternalLink size={15} className="text-muted-foreground" />
-          Xaritada tahrirlash
+          {i18n.t("edit_in_map")}
         </a>
       </div>
     </div>

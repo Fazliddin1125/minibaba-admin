@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useSettingsStore } from "../../../store/settingsStore";
+import i18n from "@/i18n/i18n";
 
 export default function StoreBannerCard() {
   const { storeBanner, setStoreBanner } = useSettingsStore();
@@ -20,14 +21,14 @@ export default function StoreBannerCard() {
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-base font-semibold text-foreground">
-          Do'kon banneri
+          {i18n.t("store_banner")}
         </h3>
         <button
           onClick={() => inputRef.current?.click()}
           className="text-sm font-medium transition-colors hover:opacity-80"
           style={{ color: "var(--primary)" }}
         >
-          Rasmni almashtirish
+          {i18n.t("change_image")}
         </button>
       </div>
 
@@ -59,7 +60,7 @@ export default function StoreBannerCard() {
               ))}
             </div>
             <div className="relative text-center">
-              <p className="text-white/40 text-sm">Banner rasmi</p>
+              <p className="text-white/40 text-sm">{i18n.t("banner_image")}</p>
             </div>
           </div>
         )}
@@ -70,13 +71,13 @@ export default function StoreBannerCard() {
           className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 hover:opacity-100"
         >
           <span className="bg-black/60 text-white text-sm px-4 py-2 rounded-lg font-medium">
-            Rasmni almashtirish
+            {i18n.t("change_image")}
           </span>
         </button>
       </div>
       {/* Banner rasm pastidagi ko'rsatmalar */}
       <p className="text-xs text-muted-foreground mt-2">
-        Tavsiya etilgan o'lcham: 1920x480px. JPG yoki PNG formatida.
+        {i18n.t("recommend_size")}
       </p>
 
       <input

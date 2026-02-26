@@ -1,3 +1,4 @@
+import i18n from "@/i18n/i18n";
 import { ShieldCheck } from "lucide-react";
 
 export default function AccountStatusCard() {
@@ -21,22 +22,20 @@ export default function AccountStatusCard() {
         </div>
         <div>
           <h3 className="text-base font-semibold text-foreground">
-            Hisob holati
+            {i18n.t("status_account")}
           </h3>
           <p
             className="text-sm font-medium"
             style={{ color: "var(--primary)" }}
           >
-            Tasdiqlangan sotuvchi
+            {i18n.t("verified_seller")}
           </p>
         </div>
       </div>
 
       {/* Izoh */}
       <p className="text-sm text-foreground/80 leading-relaxed mb-4">
-        Sizning hisobingiz barcha zaruriy tekshiruvlardan o'tgan. Bu sizga
-        xalqaro to'lovlar va ustuvor qo'llab-quvvatlash xizmatidan foydalanish
-        imkonini beradi.
+        {i18n.t("account_status_description")}
       </p>
 
       {/* Footer */}
@@ -44,7 +43,7 @@ export default function AccountStatusCard() {
         className="flex items-center justify-between pt-3 border-t"
         style={{ borderColor: "oklch(0.85 0.06 55)" }}
       >
-        <span className="text-sm text-foreground/70">Keyingi tekshiruv:</span>
+        <span className="text-sm text-foreground/70">{i18n.t("next_review")}</span>
         <span className="text-sm font-semibold text-foreground">
           {lastCheckDate}
         </span>

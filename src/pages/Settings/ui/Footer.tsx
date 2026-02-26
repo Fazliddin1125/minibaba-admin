@@ -1,3 +1,5 @@
+import i18n from "@/i18n/i18n";
+
 export default function Footer() {
   return (
     <footer className="border-t border-border bg-background mt-12">
@@ -8,13 +10,13 @@ export default function Footer() {
             <img src="/logo.png" alt="logo" />
           </a>
           <p className="text-sm text-muted-foreground">
-            © 2024 Minibaba Seller Center. Barcha huquqlar himoyalangan.
+            © 2024 Minibaba Seller Center. {i18n.t("all_rights_reserved")}
           </p>
         </div>
 
         {/* o'ng */}
         <nav className="flex items-center gap-1">
-          {["Yordam markazi", "Maxfiylik siyosati", "Bog'lanish"].map(
+          {[i18n.t("help_center"), i18n.t("privacy_policy"), i18n.t("contact"),].map(
             (link, i, arr) => (
               <span key={link} className="flex items-center">
                 <a

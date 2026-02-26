@@ -19,19 +19,22 @@ const TAB_ORDER: TabKey[] = [
 ];
 
 
-const TABS: { key: TabKey; label: string; icon: React.ReactNode }[] = [
-  { key: "basic",           label: i18n.t("basic_tabname"),            icon: <FileText size={15} />   },
-  { key: "images",          label: i18n.t("img_and_vid_tabname"),  icon: <Images size={15} />     },
-  { key: "characteristics", label: i18n.t("characteristics_tabname"),  icon: <ListChecks size={15} /> },
-  { key: "prices",          label: i18n.t("prices_tabname"),           icon: <DollarSign size={15} /> },
-  { key: "variants",        label: i18n.t("variants_tabname"),         icon: <LayoutGrid size={15} /> },
-];
+
 
 // AddProduct componenti =========================================================================================
 
 export default function AddProductPage() {
   const navigate = useNavigate();
   const { activeTab, setActiveTab, completedTabs } = useAddProductStore();
+
+  // Tabs Nav config
+  const TABS: { key: TabKey; label: string; icon: React.ReactNode }[] = [
+    { key: "basic",           label: i18n.t("basic_tabname"),            icon: <FileText size={15} />   },
+    { key: "images",          label: i18n.t("img_and_vid_tabname"),  icon: <Images size={15} />     },
+    { key: "characteristics", label: i18n.t("characteristics_tabname"),  icon: <ListChecks size={15} /> },
+    { key: "prices",          label: i18n.t("prices_tabname"),           icon: <DollarSign size={15} /> },
+    { key: "variants",        label: i18n.t("variants_tabname"),         icon: <LayoutGrid size={15} /> },
+  ];
 
   const isCompleted = (key: TabKey): boolean => {
     if (!completedTabs) return false;
