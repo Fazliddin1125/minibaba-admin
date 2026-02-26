@@ -60,7 +60,7 @@ export interface AddProductStore {
   resetStore: () => void;
 }
 
-// ─── Initial values ───────────────────────────────────────────────────────────
+// Initial values 
 
 const initialBasic: BasicTabData = {
   name: "",
@@ -74,7 +74,7 @@ const initialCharacteristics: CharacteristicsTabData = { attributes: [{ key: "",
 const initialPrices: PricesTabData   = { tiers: [{ minQty: 1, maxQty: 0, price: 0 }] };
 const initialVariants: VariantsTabData = { variants: [] };
 
-// ─── Store ────────────────────────────────────────────────────────────────────
+// Store 
 
 export const useAddProductStore = create<AddProductStore>((set) => ({
   activeTab: "basic",

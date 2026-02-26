@@ -1,8 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import {
-  FileText, Images, ListChecks,
-  DollarSign, LayoutGrid, X, Printer,
-} from "lucide-react";
+import { FileText, Images, ListChecks, DollarSign, LayoutGrid, X, Printer } from "lucide-react";
 import { useAddProductStore } from "../../store/addProductStore";
 import type { TabKey } from "../../store/addProductStore";
 import BasicTab from "./Tabs/BasicTab";
@@ -13,6 +10,7 @@ import InfoCards from "./ui/InfoCards";
 import CharacteristicsTab from "./Tabs/CharacteristicsTab";
 import TiersTab from "./Tabs/TiersTab";
 import VariantsTab from "./Tabs/VariantsTab";
+import i18n from "@/i18n/i18n";
 
 // Tab config
 
@@ -20,12 +18,13 @@ const TAB_ORDER: TabKey[] = [
   "basic", "images", "characteristics", "prices", "variants",
 ];
 
+
 const TABS: { key: TabKey; label: string; icon: React.ReactNode }[] = [
-  { key: "basic",           label: "1. Basic",            icon: <FileText size={15} />   },
-  { key: "images",          label: "2. Images & Videos",  icon: <Images size={15} />     },
-  { key: "characteristics", label: "3. Characteristics",  icon: <ListChecks size={15} /> },
-  { key: "prices",          label: "4. Prices",           icon: <DollarSign size={15} /> },
-  { key: "variants",        label: "5. Variants",         icon: <LayoutGrid size={15} /> },
+  { key: "basic",           label: i18n.t("basic_tabname"),            icon: <FileText size={15} />   },
+  { key: "images",          label: i18n.t("img_and_vid_tabname"),  icon: <Images size={15} />     },
+  { key: "characteristics", label: i18n.t("characteristics_tabname"),  icon: <ListChecks size={15} /> },
+  { key: "prices",          label: i18n.t("prices_tabname"),           icon: <DollarSign size={15} /> },
+  { key: "variants",        label: i18n.t("variants_tabname"),         icon: <LayoutGrid size={15} /> },
 ];
 
 // AddProduct componenti =========================================================================================
@@ -79,13 +78,13 @@ export default function AddProductPage() {
           <div className="space-y-1">
             <nav className="flex items-center gap-1.5 text-xs text-muted-foreground">
               <button onClick={() => navigate("/products")} className="hover:text-primary transition-colors">
-                Mahsulotlar
+                {i18n.t("products")}
               </button>
               <span className="text-border">›</span>
-              <span className="text-foreground">Yangi mahsulot</span>
+              <span className="text-foreground">{i18n.t("new_product")}</span>
             </nav>
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
-              Mahsulot qo'shish
+              {i18n.t("add_product")}
             </h1>
           </div>
 
@@ -98,7 +97,7 @@ export default function AddProductPage() {
                 "border border-border bg-card text-foreground hover:bg-muted transition-colors"
               )}
             >
-              <X size={15} /> Bekor qilish
+              <X size={15} /> {i18n.t("cancel", )}
             </button>
             <button
               type="button"
@@ -108,7 +107,7 @@ export default function AddProductPage() {
                 "bg-primary text-primary-foreground hover:opacity-90 active:scale-[0.98] transition-all"
               )}
             >
-              <Printer size={15} /> Saqlash va chop etish
+              <Printer size={15} /> {i18n.t("save_and_print")}
             </button>
           </div>
 
@@ -121,7 +120,7 @@ export default function AddProductPage() {
                 "border border-border bg-card text-foreground hover:bg-muted transition-colors"
               )}
             >
-              Bekor qilish
+              {i18n.t("cancel")}
             </button>
             <button
               type="button"
@@ -131,7 +130,7 @@ export default function AddProductPage() {
                 "bg-primary text-primary-foreground hover:opacity-90 transition-all"
               )}
             >
-              Saqlash va chop etish
+              {i18n.t("save_and_print")}
             </button>
           </div>
         </div>

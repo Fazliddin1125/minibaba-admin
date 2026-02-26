@@ -9,24 +9,23 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import Sidebar from "./components/shared/sidebar";
 import Navbar from "./components/shared/navbar";
 import AddProductPage from "./pages/AddProduct/AddProduct";
+import Settings from "./pages/Settings/Settings";
 
 function App() {
   return (
     // 👇 Ushbu div'dan h-screen class'ini olib tashladim. Sababi mening bu yerga qo'shgan /add-product sahifasi scroll bo'lmayapti. /add-product sahifasini qurib bo'lgandan so'ng, path'larni to'g'irlab, /add-product sahifasini boshqa joyga ko'chiramiz. Shunda h-screen classini qayta qo'shib qo'yish kerak ushbu div'ga! (PRATOV)
-    <div className=" w-full bg-background font-sans text-foreground overflow-hidden">
+    <div className="w-full bg-background font-sans text-foreground overflow-hidden">
       <Routes>
-
-        {/* Boshlang'ich sahifa - loginga yo'naltiradi */}
-        
 
         {/* Auth sahifalari */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
-        <Route path="/add-product" element={<AddProductPage/>} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/add-product" element={<AddProductPage />} />
 
         {/* Dashboard sahifalari */}
-        <Route path="/dashboard" element={          
+        <Route path="/dashboard" element={
           <div className="flex h-full w-full">
             <div className="hidden md:flex h-full">
               <Sidebar />

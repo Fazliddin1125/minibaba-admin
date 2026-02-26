@@ -9,21 +9,22 @@ import { ChevronDown, Save } from "lucide-react";
 import { useAddProductStore } from "../../../store/addProductStore";
 import { cn } from "../../../lib/utils";
 import FooterNavigation from "../ui/FooterNavigation";
+import i18n from "@/i18n/i18n";
 
 
 
 const basicSchema = z.object({
-  name: z.string().min(1, "Mahsulot nomini kiriting"),
+  name: z.string().min(1, i18n.t("enter_product_name")),
   description: z.string().refine(
     (val) => val.replace(/<[^>]*>/g, "").trim().length > 0,
-    { message: "Tavsifni kiriting" }
+    { message: i18n.t("enter_description") }
   ),
-  categoryId: z.string().min(1, "Kategoriyani tanlang"),
+  categoryId: z.string().min(1, i18n.t("select_category")),
   moq: z
     .string()
-    .min(1, "MOQ ni kiriting")
+    .min(1, i18n.t("enter_moq"))
     .refine((val) => !isNaN(Number(val)) && Number(val) >= 1, {
-      message: "Kamida 1 bo'lishi kerak",
+      message: i18n.t("there_is_at_least_one"),
     }),
 });
 
@@ -109,11 +110,11 @@ export default function BasicTab({ onNext, onSaveDraft }: TabProps) {
             {/* Mahsulot nomi */}
             <div className="space-y-2">
               <label className="text-sm font-semibold text-foreground">
-                Mahsulot nomi <span className="text-destructive">*</span>
+                {i18n.t("product_name")} <span className="text-destructive">*</span>
               </label>
               <input
                 {...register("name")}
-                placeholder="Masalan: Paxta tolali premium futbolka"
+                placeholder={i18n.t("example_cotton_premium_shirt")}
                 className={cn(
                   "w-full px-4 py-3 rounded-(--radius-md) border text-sm transition-all outline-none",
                   "bg-transparent text-foreground placeholder:text-muted-foreground",
@@ -131,7 +132,7 @@ export default function BasicTab({ onNext, onSaveDraft }: TabProps) {
             {/* Tavsif (Rich text). React Quill kutubxonasidan foydalandim */}
             <div className="space-y-2">
               <label className="text-sm font-semibold text-foreground">
-                Tavsif (Rich Text) <span className="text-destructive">*</span>
+                {i18n.t("description")} (Rich Text) <span className="text-destructive">*</span>
               </label>
               <Controller
                 name="description"
@@ -157,7 +158,7 @@ export default function BasicTab({ onNext, onSaveDraft }: TabProps) {
                       onBlur={field.onBlur}
                       modules={QUILL_MODULES}
                       formats={QUILL_FORMATS}
-                      placeholder="Mahsulot haqida batafsil ma'lumot kiriting..."
+                      placeholder={i18n.t("enter_more_information_about_product")}
                     />
                   </div>
                 )}
@@ -172,7 +173,7 @@ export default function BasicTab({ onNext, onSaveDraft }: TabProps) {
               {/* Kategoriya */}
               <div className="space-y-2">
                 <label className="text-sm font-semibold text-foreground">
-                  Kategoriya <span className="text-destructive">*</span>
+                  {i18n.t("category")} <span className="text-destructive">*</span>
                 </label>
                 <div className="relative">
                   <select
@@ -188,7 +189,7 @@ export default function BasicTab({ onNext, onSaveDraft }: TabProps) {
                     defaultValue=""
                   >
                     <option value="" disabled className="text-muted-foreground">
-                      Kategoriyani tanlang
+                      {i18n.t("select_category")}
                     </option>
                     {CATEGORIES.map((cat) => (
                       <option key={cat.id} value={cat.id}>
@@ -209,7 +210,7 @@ export default function BasicTab({ onNext, onSaveDraft }: TabProps) {
               {/* MOQ */}
               <div className="space-y-2">
                 <label className="text-sm font-semibold text-foreground">
-                  MOQ (Minimal buyurtma) <span className="text-destructive">*</span>
+                  {i18n.t("moq_minimum_order")} <span className="text-destructive">*</span>
                 </label>
                 <div
                   className={cn(
@@ -232,7 +233,7 @@ export default function BasicTab({ onNext, onSaveDraft }: TabProps) {
                     )}
                   />
                   <span className="px-3 py-3 text-sm text-muted-foreground bg-muted border-l border-border select-none">
-                    dona
+                    {i18n.t("x_number")}
                   </span>
                 </div>
                 {errors.moq && (
@@ -261,7 +262,7 @@ export default function BasicTab({ onNext, onSaveDraft }: TabProps) {
           )}
           >
           <Save size={16} />
-          Mahsulotni saqlash
+          {i18n.t("save_product")}
         </button>
       </div>
     </div>

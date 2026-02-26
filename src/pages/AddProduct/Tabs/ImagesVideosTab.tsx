@@ -4,6 +4,7 @@ import { useAddProductStore } from "../../../store/addProductStore";
 import { cn } from "../../../lib/utils";
 import type { TabProps } from "./BasicTab";
 import FooterNavigation from "../ui/FooterNavigation";
+import i18n from "@/i18n/i18n";
 
 
 interface MediaFile {
@@ -30,8 +31,8 @@ function createMediaFile(file: File): MediaFile {
 }
 
 function validateFile(file: File): string | null {
-  if (!ACCEPTED.includes(file.type)) return "Faqat JPG, PNG, MP4 formatlar qabul qilinadi";
-  if (file.size > 50 * 1024 * 1024) return "Fayl hajmi 50MB dan oshmasligi kerak";
+  if (!ACCEPTED.includes(file.type)) return i18n.t("only_acceptable_file_formats");
+  if (file.size > 50 * 1024 * 1024) return i18n.t("max_file_size_50mb");
   return null;
 }
 
@@ -85,7 +86,7 @@ function UploadZone({ file, onUpload, onRemove, large = false }: UploadZoneProps
           file
             ? "border-(--primary)/40 bg-muted"
             : isDragging
-            ? "border-primary bg-(--primary)/5 scale-[1.01]"
+            ? "border-primary bg-primary/5 scale-[1.01]"
             : "border-(--primary)/40 bg-(--primary)/2 hover:bg-(--primary)/4 hover:border-(--primary)/60 cursor-pointer"
         )}
       >
@@ -127,11 +128,11 @@ function UploadZone({ file, onUpload, onRemove, large = false }: UploadZoneProps
                 "font-semibold text-primary",
                 large ? "text-base" : "text-xs uppercase tracking-wide"
               )}>
-                Rasm yoki video yuklash
+                {i18n.t("upload_img_or_vid")}
               </p>
               {large && (
                 <p className="text-xs text-muted-foreground">
-                  Bu rasm qidiruv natijalarida ko'rinadi
+                  {i18n.t("this_img_shows_in_search_results")}
                 </p>
               )}
             </div>
@@ -213,20 +214,20 @@ export default function ImagesVideosTab({ onNext, onSaveDraft }: TabProps) {
         {/* Tabning headeri */}
         <div className="flex items-start justify-between gap-3">
           <div className="space-y-0.5">
-            <h3 className="text-base font-bold text-foreground">Media fayllar</h3>
+            <h3 className="text-base font-bold text-foreground">{i18n.t("media_files")}</h3>
             <p className="text-sm text-muted-foreground">
-              Mahsulotingizning asosiy ko'rinishini boshqaring.
+              {i18n.t("manage_main_image_of_your_product")}
             </p>
           </div>
-          <span className="shrink-0 text-xs font-medium px-2.5 py-1 rounded-full bg-(--primary)/10 text-primary border border-(--primary)/20 whitespace-nowrap">
-            Maksimal 5 ta fayl (JPG, PNG, MP4)
+          <span className="shrink-0 text-xs font-medium px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-(--primary)/20 whitespace-nowrap">
+            {i18n.t("max_5_files")}
           </span>
         </div>
 
         {/* Upload layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <p className="text-sm font-semibold text-foreground">Asosiy muqova rasmi</p>
+            <p className="text-sm font-semibold text-foreground">{i18n.t("main_cover_image")}</p>
             <UploadZone
               file={mainFile}
               onUpload={handleMainUpload}
@@ -235,7 +236,7 @@ export default function ImagesVideosTab({ onNext, onSaveDraft }: TabProps) {
             />
           </div>
           <div className="space-y-2">
-            <p className="text-sm font-semibold text-foreground">Qo'shimcha media</p>
+            <p className="text-sm font-semibold text-foreground">{i18n.t("more_media")}</p>
             <div className="grid grid-cols-2 gap-3">
               {extraFiles.map((file, i) => (
                 <UploadZone
@@ -252,7 +253,7 @@ export default function ImagesVideosTab({ onNext, onSaveDraft }: TabProps) {
         {/* Nechta fayl yuklangan */}
         {totalCount > 0 && (
           <p className="text-xs text-muted-foreground text-right">
-            {totalCount} / 5 ta fayl yuklangan
+            {totalCount} / {i18n.t("uploaded_5files")}
           </p>
         )}
       </div>
@@ -272,7 +273,7 @@ export default function ImagesVideosTab({ onNext, onSaveDraft }: TabProps) {
           )}
         >
           <Save size={16} />
-          Saqlash
+          {i18n.t("save")}
         </button>
       </div>
     </div>

@@ -3,8 +3,10 @@ import { Plus, Trash2, Upload, ChevronDown } from "lucide-react";
 import { useAddProductStore } from "../../../store/addProductStore";
 import FooterNavigation from "../ui/FooterNavigation";
 import { cn } from "../../../lib/utils";
+import i18n from "@/i18n/i18n";
+import type { TabProps } from "./BasicTab";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
+// Types
 
 type Status = "faol" | "nofaol";
 
@@ -19,7 +21,7 @@ interface Variant {
   status: Status;
 }
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
+// Yordamchi funksiyalari
 
 let idCounter = 0;
 const genId = () => `v-${++idCounter}`;
@@ -36,11 +38,11 @@ const createVariant = (): Variant => ({
 });
 
 const STATUS_OPTIONS: { value: Status; label: string }[] = [
-  { value: "faol",   label: "Faol"   },
-  { value: "nofaol", label: "Nofaol" },
+  { value: "faol",   label: i18n.t("active")  },
+  { value: "nofaol", label: i18n.t("inactive") },
 ];
 
-// ─── Shared input class ───────────────────────────────────────────────────────
+// Shared input class
 
 const inputCls = cn(
   "w-full px-2.5 py-2 rounded-[var(--radius-md)] border text-sm outline-none transition-all bg-transparent",
@@ -49,7 +51,7 @@ const inputCls = cn(
   "[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
 );
 
-// ─── Image Upload Cell ────────────────────────────────────────────────────────
+// Rasm yuklash 
 
 function ImageCell({
   preview,
@@ -67,7 +69,7 @@ function ImageCell({
         "w-10 h-10 rounded-(--radius-md) border-2 border-dashed flex items-center justify-center cursor-pointer transition-all shrink-0 overflow-hidden",
         preview
           ? "border-(--primary)/40"
-          : "border-(--primary)/40 bg-(--primary)/5 hover:bg-(--primary)/10"
+          : "border-(--primary)/40 bg-primary/5 hover:bg-primary/10"
       )}
     >
       {preview ? (
@@ -90,7 +92,7 @@ function ImageCell({
   );
 }
 
-// ─── Status Badge ─────────────────────────────────────────────────────────────
+// Status badge
 
 function StatusBadge({ status }: { status: Status }) {
   return (
@@ -102,21 +104,14 @@ function StatusBadge({ status }: { status: Status }) {
           : "bg-muted text-muted-foreground"
       )}
     >
-      {status === "faol" ? "FAOL" : "NOFAOL"}
+      {status === "faol" ? i18n.t("active").toUpperCase() : i18n.t("inactive").toUpperCase()}
     </span>
   );
 }
 
-// ─── Props ────────────────────────────────────────────────────────────────────
+// Asosiy compoennt
 
-interface VariantsTabProps {
-  onNext: () => void;
-  onSaveDraft: () => void;
-}
-
-// ─── Main Component ───────────────────────────────────────────────────────────
-
-export default function VariantsTab({ onNext, onSaveDraft }: VariantsTabProps) {
+export default function VariantsTab({ onNext, onSaveDraft }: TabProps) {
   const { markTabCompleted } = useAddProductStore();
 
   const [variants, setVariants] = useState<Variant[]>([
@@ -132,7 +127,7 @@ export default function VariantsTab({ onNext, onSaveDraft }: VariantsTabProps) {
   const [bulkStock,  setBulkStock]  = useState("");
   const [bulkStatus, setBulkStatus] = useState<Status>("faol");
 
-  // ── Variant CRUD ──────────────────────────────────────────────────────────
+  // Variant CRUD
 
   const updateVariant = (id: string, patch: Partial<Variant>) => {
     setVariants((prev) => prev.map((v) => (v.id === id ? { ...v, ...patch } : v)));
@@ -150,7 +145,7 @@ export default function VariantsTab({ onNext, onSaveDraft }: VariantsTabProps) {
     updateVariant(id, { image: file, imagePreview: preview });
   };
 
-  // ── Selection ─────────────────────────────────────────────────────────────
+  // Selection
 
   const toggleAll = () => {
     if (selected.size === variants.length) {
@@ -171,7 +166,7 @@ export default function VariantsTab({ onNext, onSaveDraft }: VariantsTabProps) {
   const allChecked = variants.length > 0 && selected.size === variants.length;
   const someChecked = selected.size > 0 && !allChecked;
 
-  // ── Ommaviy tahrirlash apply ───────────────────────────────────────────────
+  // Ommaviy tahrirlash apply 
 
   const applyBulk = () => {
     setVariants((prev) =>
@@ -187,27 +182,25 @@ export default function VariantsTab({ onNext, onSaveDraft }: VariantsTabProps) {
     );
   };
 
-  // ── Submit ────────────────────────────────────────────────────────────────
+  // Submit 
 
   const handleNext = () => {
     markTabCompleted("variants");
     onNext();
   };
 
-  // ─────────────────────────────────────────────────────────────────────────
-
   return (
     <div>
       <div className="p-4 sm:p-6 space-y-5">
 
-        {/* ── Section header ── */}
+        {/* Section header */}
         <div className="flex items-start justify-between gap-3">
           <div>
             <h3 className="text-base font-bold text-foreground">
-              Mahsulot variantlari (Matrix)
+              {i18n.t("product_variants")} (Matrix)
             </h3>
             <p className="text-sm text-muted-foreground mt-0.5">
-              Har bir variant uchun alohida narx va zaxira kiritishingiz mumkin.
+              {i18n.t("price_and_stock_for_each_variant")}
             </p>
           </div>
 
@@ -221,7 +214,7 @@ export default function VariantsTab({ onNext, onSaveDraft }: VariantsTabProps) {
                 "hover:bg-muted transition-colors"
               )}
             >
-              <Plus size={13} /> Rangi
+              <Plus size={13} /> {i18n.t("color")}
             </button>
             <button
               type="button"
@@ -232,20 +225,20 @@ export default function VariantsTab({ onNext, onSaveDraft }: VariantsTabProps) {
                 "hover:bg-muted transition-colors"
               )}
             >
-              <Plus size={13} /> O'lchami
+              <Plus size={13} /> {i18n.t("size")}
             </button>
           </div>
         </div>
 
-        {/* ── Ommaviy tahrirlash panel ── */}
+        {/* Ommaviy tahrirlash panel */}
         <div className="rounded-lg bg-orange-50 border border-orange-200 p-4">
           <div className="flex flex-wrap items-center gap-2 mb-3">
             <span className="text-xs font-bold text-primary uppercase tracking-wide">
-              Ommaviy tahrirlash
+              {i18n.t("bulk_edit")}
             </span>
             {selected.size > 0 && (
               <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-primary text-white">
-                {selected.size} ta tanlandi
+                {selected.size} {i18n.t("x_selected")}
               </span>
             )}
           </div>
@@ -254,14 +247,14 @@ export default function VariantsTab({ onNext, onSaveDraft }: VariantsTabProps) {
             {/* Narx */}
             <div className="space-y-1">
               <label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
-                Narxni o'rnatish
+                {i18n.t("set_price")}
               </label>
               <div className="flex items-center rounded-(--radius-md) border border-border overflow-hidden bg-white focus-within:border-primary focus-within:ring-2 focus-within:ring-(--primary)/20">
                 <input
                   type="number"
                   value={bulkPrice}
                   onChange={(e) => setBulkPrice(e.target.value)}
-                  placeholder="Barchasiga..."
+                  placeholder={i18n.t("apply_to_all")}
                   className="flex-1 px-3 py-2 text-sm outline-none bg-transparent text-foreground placeholder:text-muted-foreground [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 />
                 <span className="px-2 text-xs font-medium text-muted-foreground bg-muted border-l border-border py-2 select-none">
@@ -273,13 +266,13 @@ export default function VariantsTab({ onNext, onSaveDraft }: VariantsTabProps) {
             {/* Zaxira */}
             <div className="space-y-1">
               <label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
-                Zaxirani o'rnatish
+                {i18n.t("set_stock")}
               </label>
               <input
                 type="number"
                 value={bulkStock}
                 onChange={(e) => setBulkStock(e.target.value)}
-                placeholder="Barchasiga..."
+                placeholder={i18n.t("apply_to_all")}
                 className="w-full px-3 py-2 rounded-(--radius-md) border border-border text-sm outline-none bg-white text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-(--primary)/20 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               />
             </div>
@@ -287,7 +280,7 @@ export default function VariantsTab({ onNext, onSaveDraft }: VariantsTabProps) {
             {/* Holat */}
             <div className="space-y-1">
               <label className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
-                Holat
+                {i18n.t("condition")}
               </label>
               <div className="relative">
                 <select
@@ -315,12 +308,12 @@ export default function VariantsTab({ onNext, onSaveDraft }: VariantsTabProps) {
                 "disabled:opacity-40 disabled:cursor-not-allowed"
               )}
             >
-              Qo'llash
+              {i18n.t("apply")}
             </button>
           </div>
         </div>
 
-        {/* ── Variants table ── */}
+        {/* Variants table */}
         <div className="rounded-lg border border-border overflow-hidden">
 
           {/* Table header — desktop */}
@@ -342,7 +335,7 @@ export default function VariantsTab({ onNext, onSaveDraft }: VariantsTabProps) {
           <div className="divide-y divide-border">
             {variants.map((v) => (
               <div key={v.id}>
-                {/* ── Desktop row ── */}
+                {/* Desktop row */}
                 <div className="hidden sm:grid sm:grid-cols-[auto_auto_1fr_1fr_1fr_1fr_auto_auto] gap-3 items-center px-4 py-3">
                   {/* Checkbox */}
                   <input
@@ -365,7 +358,7 @@ export default function VariantsTab({ onNext, onSaveDraft }: VariantsTabProps) {
                   <button
                     type="button"
                     onClick={() => updateVariant(v.id, { status: v.status === "faol" ? "nofaol" : "faol" })}
-                    title="Holatni o'zgartirish"
+                    title={i18n.t("change_state")}
                   >
                     <StatusBadge status={v.status} />
                   </button>
@@ -379,7 +372,7 @@ export default function VariantsTab({ onNext, onSaveDraft }: VariantsTabProps) {
                   </button>
                 </div>
 
-                {/* ── Mobile card ── */}
+                {/* Mobile card */}
                 <div className="sm:hidden p-4 space-y-3">
                   <div className="flex items-center gap-3">
                     <input
@@ -391,12 +384,12 @@ export default function VariantsTab({ onNext, onSaveDraft }: VariantsTabProps) {
                     <ImageCell preview={v.imagePreview} onChange={(f) => handleImage(v.id, f)} />
                     <div className="flex-1 grid grid-cols-2 gap-2">
                       <div>
-                        <label className="text-[10px] text-muted-foreground font-semibold">Rangi</label>
-                        <input value={v.color} onChange={(e) => updateVariant(v.id, { color: e.target.value })} placeholder="Rang" className={cn(inputCls, "mt-0.5")} />
+                        <label className="text-[10px] text-muted-foreground font-semibold">{i18n.t("color")}</label>
+                        <input value={v.color} onChange={(e) => updateVariant(v.id, { color: e.target.value })} placeholder={i18n.t("color")} className={cn(inputCls, "mt-0.5")} />
                       </div>
                       <div>
-                        <label className="text-[10px] text-muted-foreground font-semibold">O'lchami</label>
-                        <input value={v.size} onChange={(e) => updateVariant(v.id, { size: e.target.value })} placeholder="O'lcham" className={cn(inputCls, "mt-0.5")} />
+                        <label className="text-[10px] text-muted-foreground font-semibold">{i18n.t("size")}</label>
+                        <input value={v.size} onChange={(e) => updateVariant(v.id, { size: e.target.value })} placeholder={i18n.t("size")} className={cn(inputCls, "mt-0.5")} />
                       </div>
                     </div>
                     <button type="button" onClick={() => removeVariant(v.id)} className="text-muted-foreground hover:text-destructive transition-colors">
@@ -406,15 +399,15 @@ export default function VariantsTab({ onNext, onSaveDraft }: VariantsTabProps) {
 
                   <div className="grid grid-cols-3 gap-2 pl-7">
                     <div>
-                      <label className="text-[10px] text-muted-foreground font-semibold">Zaxira</label>
+                      <label className="text-[10px] text-muted-foreground font-semibold">{i18n.t("stock")}</label>
                       <input type="number" value={v.stock} onChange={(e) => updateVariant(v.id, { stock: e.target.value })} placeholder="0" className={cn(inputCls, "mt-0.5")} />
                     </div>
                     <div>
-                      <label className="text-[10px] text-muted-foreground font-semibold">Narx</label>
+                      <label className="text-[10px] text-muted-foreground font-semibold">{i18n.t("price")}</label>
                       <input type="number" value={v.price} onChange={(e) => updateVariant(v.id, { price: e.target.value })} placeholder="0" className={cn(inputCls, "mt-0.5")} />
                     </div>
                     <div>
-                      <label className="text-[10px] text-muted-foreground font-semibold">Holat</label>
+                      <label className="text-[10px] text-muted-foreground font-semibold">{i18n.t("condition")}</label>
                       <button type="button" onClick={() => updateVariant(v.id, { status: v.status === "faol" ? "nofaol" : "faol" })} className="mt-0.5 block">
                         <StatusBadge status={v.status} />
                       </button>
@@ -426,22 +419,22 @@ export default function VariantsTab({ onNext, onSaveDraft }: VariantsTabProps) {
           </div>
         </div>
 
-        {/* ── Add variant button ── */}
+        {/* Add variant button */}
         <button
           type="button"
           onClick={addVariant}
           className={cn(
             "w-full flex items-center justify-center gap-2 py-3 rounded-lg",
             "border-2 border-dashed border-(--primary)/40 text-primary text-sm font-semibold",
-            "hover:border-(--primary)/70 hover:bg-(--primary)/5 transition-all"
+            "hover:border-(--primary)/70 hover:bg-primary/5 transition-all"
           )}
         >
           <Plus size={16} />
-          Yangi variant qo'shish
+          {i18n.t("add_new_variant")}
         </button>
       </div>
 
-      {/* ── Footer ── */}
+      {/* Footer */}
       <FooterNavigation onNext={handleNext} onSaveDraft={onSaveDraft} />
 
       {/* Mobile sticky */}
@@ -455,7 +448,7 @@ export default function VariantsTab({ onNext, onSaveDraft }: VariantsTabProps) {
             "hover:opacity-90 active:scale-[0.98] transition-all"
           )}
         >
-          Saqlash
+          {i18n.t("save")}
         </button>
       </div>
     </div>

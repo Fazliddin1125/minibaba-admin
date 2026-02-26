@@ -6,13 +6,14 @@ import { Plus, Trash2 } from "lucide-react";
 import { useAddProductStore } from "../../../store/addProductStore";
 import FooterNavigation from "../ui/FooterNavigation";
 import { cn } from "../../../lib/utils";
+import i18n from "@/i18n/i18n";
 
 // Sxema
 
 const tierSchema = z.object({
-  minQty: z.string().min(1, "Kiriting"),
+  minQty: z.string().min(1, i18n.t("enter")),
   maxQty: z.string().optional(),
-  price:  z.string().min(1, "Kiriting"),
+  price:  z.string().min(1, i18n.t("enter")),
 });
 
 const schema = z.object({
@@ -80,16 +81,16 @@ export default function TiersTab({ onNext, onSaveDraft }: PricesTabProps) {
           {/* Tab header */}
           <div>
             <h3 className="text-base font-bold text-foreground">
-              Ulgurji narxlar darajalari
+              {i18n.t("wholesale_price_tiers")}
             </h3>
             <p className="text-sm text-muted-foreground mt-0.5">
-              Xaridor ko'proq sotib olsa, narx shuncha arzonlashadi
+              {i18n.t("more_buy_is_cheaper")}
             </p>
           </div>
 
           {/* Desktop ustunlar headeri */}
           <div className="hidden sm:grid grid-cols-[1fr_1fr_1.2fr_auto] gap-3 items-center px-1 ">
-            {["MINIMAL MIQDOR", "MAKSIMAL MIQDOR", "NARX (DONA UZS)"].map((h) => (
+            {[i18n.t("min_quantity"), i18n.t("max_quantity"), i18n.t("price_x")].map((h) => (
               <span key={h} className="text-xs font-semibold text-muted-foreground tracking-wider uppercase">
                 {h}
               </span>
@@ -117,12 +118,12 @@ export default function TiersTab({ onNext, onSaveDraft }: PricesTabProps) {
                   {/* Minimal miqdor */}
                   <div className="space-y-1 sm:space-y-0">
                     <label className="text-xs font-semibold text-muted-foreground sm:hidden">
-                      Minimal miqdor
+                      {i18n.t("min_quantity_label")}
                     </label>
                     <input
                       {...register(`tiers.${i}.minQty`)}
                       type="number"
-                      placeholder="Masalan: 10"
+                      placeholder={i18n.t("example")+": 10"}
                       className={cn(inputCls, err?.minQty && "border-destructive")}
                     />
                     {err?.minQty && (
@@ -135,12 +136,12 @@ export default function TiersTab({ onNext, onSaveDraft }: PricesTabProps) {
                   {/* Maksimal miqdor */}
                   <div className="space-y-1 sm:space-y-0">
                     <label className="text-xs font-semibold text-muted-foreground sm:hidden">
-                      Maksimal miqdor
+                      {i18n.t("max_quantity_label")}
                     </label>
                     <input
                       {...register(`tiers.${i}.maxQty`)}
                       type="number"
-                      placeholder={isLast ? "Maksimal" : "Masalan: 50"}
+                      placeholder={isLast ? i18n.t("max_label") : i18n.t("example")+": 50"}
                       className={inputCls}
                     />
                   </div>
@@ -148,7 +149,7 @@ export default function TiersTab({ onNext, onSaveDraft }: PricesTabProps) {
                   {/* Narx + suffix + delete */}
                   <div className="space-y-1 sm:space-y-0">
                     <label className="text-xs font-semibold text-muted-foreground sm:hidden">
-                      Narx (UZS)
+                      {i18n.t("price")}
                     </label>
                     <div className="flex items-center gap-2">
                       {/* Narx input bilan suffix */}
@@ -160,7 +161,7 @@ export default function TiersTab({ onNext, onSaveDraft }: PricesTabProps) {
                         <input
                           {...register(`tiers.${i}.price`)}
                           type="number"
-                          placeholder="Masalan: 45000"
+                          placeholder={i18n.t("example")+": 45000"}
                           className={cn(
                             "flex-1 px-3 py-2.5 text-sm outline-none bg-card",
                             "text-foreground placeholder:text-muted-foreground",
@@ -204,11 +205,11 @@ export default function TiersTab({ onNext, onSaveDraft }: PricesTabProps) {
             className={cn(
               "w-full flex items-center justify-center gap-2 py-3 rounded-lg",
               "border-2 border-dashed border-(--primary)/40 text-primary text-sm font-semibold",
-              "hover:border-(--primary)/70 hover:bg-(--primary)/5 transition-all"
+              "hover:border-(--primary)/70 hover:bg-primary/5 transition-all"
             )}
           >
             <Plus size={16} />
-            Daraja qo'shish
+            {i18n.t("add_tier")}
           </button>
         </div>
 
@@ -230,7 +231,7 @@ export default function TiersTab({ onNext, onSaveDraft }: PricesTabProps) {
             "hover:opacity-90 active:scale-[0.98] transition-all"
           )}
         >
-          Saqlash
+          {i18n.t("save")}
         </button>
       </div>
     </div>

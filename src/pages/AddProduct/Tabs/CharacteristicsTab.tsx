@@ -7,6 +7,7 @@ import { useAddProductStore } from "../../../store/addProductStore";
 import { cn } from "../../../lib/utils";
 import type { TabProps } from "./BasicTab";
 import FooterNavigation from "../ui/FooterNavigation";
+import i18n from "@/i18n/i18n";
 
 // Sxema
 
@@ -26,9 +27,16 @@ type FormValues = z.infer<typeof schema>;
 // Davlatlar
 
 const COUNTRIES = [
-  "O'zbekiston", "Xitoy", "Rossiya", "Germaniya",
-  "AQSH", "Turkiya", "Janubiy Koreya", "Yaponiya",
-  "Italiya", "Hindiston",
+  i18n.t("uzbekistan"), 
+  i18n.t("china"), 
+  i18n.t("russia"), 
+  i18n.t("germany"),
+  i18n.t("usa"), 
+  i18n.t("turkey"), 
+  i18n.t("south_korea"), 
+  i18n.t("japan"),
+  i18n.t("italy"), 
+  i18n.t("india"),
 ];
 
 // Field config
@@ -45,14 +53,14 @@ interface FieldConfig {
 }
 
 const FIELDS: FieldConfig[] = [
-  { name: "material",       label: "Material",                type: "text",   placeholder: "Premium Paxta"  },
-  { name: "akumlyator",     label: "Akumlyator quvvati",      type: "number", placeholder: "Masalan: 5000",  suffix: "mAh" },
-  { name: "uzunligi",       label: "Uzunligi",                type: "number", placeholder: "Masalan: 120",   suffix: "sm"  },
-  { name: "standart",       label: "Standart",                type: "text",   placeholder: "Masalan: ISO 9001" },
-  { name: "brend",          label: "Brend",                   type: "text",   placeholder: "Brend nomini kiriting" },
-  { name: "mamlakat",       label: "Kelib chiqish mamlakati", type: "select", placeholder: "Tanlang", options: COUNTRIES },
-  { name: "ranglarSoni",    label: "Ranglar soni",            type: "text",   placeholder: "Masalan: 4 xil" },
-  { name: "kafolatMuddati", label: "Kafolat muddati",        type: "number", placeholder: "Masalan: 12",    suffix: "oy"  },
+  { name: "material",       label: i18n.t("material"),          type: "text",   placeholder: i18n.t("material_placeholder")  },
+  { name: "akumlyator",     label: i18n.t("accumulator_power"), type: "number", placeholder: i18n.t("accumulator_power_placeholder"),  suffix: i18n.t("accumulatory_power_suffix") },
+  { name: "uzunligi",       label: i18n.t("distance"),          type: "number", placeholder: i18n.t("distance_placeholder"),   suffix: i18n.t("distance_suffix")  },
+  { name: "standart",       label: i18n.t("standart"),          type: "text",   placeholder: i18n.t("standart_placeholder") },
+  { name: "brend",          label: i18n.t("brand"),             type: "text",   placeholder: i18n.t("brand_placeholder") },
+  { name: "mamlakat",       label: i18n.t("made_in_country"),   type: "select", placeholder: i18n.t("made_in_country_placeholder"), options: COUNTRIES },
+  { name: "ranglarSoni",    label: i18n.t("number_of_color"),   type: "text",   placeholder: i18n.t("number_of_color_placeholder") },
+  { name: "kafolatMuddati", label: i18n.t("warranty_period"),   type: "number", placeholder: i18n.t("warranty_period_placeholder"),    suffix: i18n.t("warranty_period_suffix")  },
 ];
 
 // Characteristics Tab component =======================================================================================
@@ -107,10 +115,10 @@ export default function CharacteristicsTab({ onNext, onSaveDraft }: TabProps) {
           <div className="flex items-start justify-between gap-3">
             <div className="space-y-0.5">
               <h3 className="text-base font-bold text-foreground">
-                Mahsulot xususiyatlari
+                {i18n.t("product_characteristics")}
               </h3>
               <p className="text-sm text-muted-foreground">
-                Kategoriya bo'yicha tavsiya etilgan texnik ko'rsatkichlarni to'ldiring
+                {i18n.t("enter_required_technical_indicators")}
               </p>
             </div>
 
@@ -119,12 +127,12 @@ export default function CharacteristicsTab({ onNext, onSaveDraft }: TabProps) {
               type="button"
               className={cn(
                 "shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-(--radius-md) text-xs font-semibold",
-                "border border-(--primary)/40 text-primary bg-(--primary)/5",
-                "hover:bg-(--primary)/10 transition-colors"
+                "border border-(--primary)/40 text-primary bg-primary/5",
+                "hover:bg-primary/10 transition-colors"
               )}
             >
               <Plus size={13} />
-              Yangi qo'shish
+              {i18n.t("add_new")}
             </button>
           </div>
 
@@ -213,7 +221,7 @@ export default function CharacteristicsTab({ onNext, onSaveDraft }: TabProps) {
           )}
         >
           <Save size={16} />
-          Keyingi
+          {i18n.t("next")}
         </button>
       </div>
     </div>
