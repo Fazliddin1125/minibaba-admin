@@ -26,7 +26,7 @@ function App() {
         <Route path="/add-product" element={<AddProductPage />} />
 
         {/* Dashboard sahifalari */}
-        <Route path="/dashboard" element={
+        <Route path="/" element={
           <div className="flex h-full w-full">
             <div className="hidden md:flex h-full">
               <Sidebar />
