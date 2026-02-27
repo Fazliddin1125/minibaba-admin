@@ -13,6 +13,7 @@ import Settings from "./pages/Settings/Settings";
 
 function App() {
   return (
+    // mre
     // 👇 Ushbu div'dan h-screen class'ini olib tashladim. Sababi mening bu yerga qo'shgan /add-product sahifasi scroll bo'lmayapti. /add-product sahifasini qurib bo'lgandan so'ng, path'larni to'g'irlab, /add-product sahifasini boshqa joyga ko'chiramiz. Shunda h-screen classini qayta qo'shib qo'yish kerak ushbu div'ga! (PRATOV)
     <div className="w-full bg-background font-sans text-foreground overflow-hidden">
       <Routes>
