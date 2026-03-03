@@ -1,4 +1,4 @@
-import { Search, Bell, Menu, MessageCircleCheck } from "lucide-react";
+import { Search, Bell, Menu, MessageSquare } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useTranslation } from "react-i18next";
@@ -74,7 +74,7 @@ export default function Navbar() {
             <Bell className="w-5 h-5 text-gray-500 group-hover:text-[#1a2233]" />
             <span className="absolute top-2 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
           </button>
-          <MessageCircleCheck className="w-5 h-5 text-gray-500 hover:text-[#1a2233] cursor-pointer" />
+          <MessageSquare className="w-5 h-5 text-gray-500 hover:text-[#1a2233] cursor-pointer" />
         </div>
       </div>
 

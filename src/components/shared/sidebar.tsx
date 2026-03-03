@@ -1,5 +1,5 @@
-import { NavLink } from "react-router-dom";
-import { LayoutDashboard, Box, ShoppingCart, MessageSquare, BarChart3, Settings } from "lucide-react";
+import { Link, NavLink } from "react-router-dom";
+import { LayoutDashboard, Box, ShoppingCart, MessageSquare, BarChart3, Settings,  LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const menuItems = [
@@ -19,11 +19,12 @@ type SidebarProps ={
 export default function Sidebar({ isMobile }: SidebarProps) {
   return (
     <aside className={cn(
-      "w-64 h-full flex flex-col py-6 px-4 font-sans h-100vh bg-white",
+      "w-64 h-full flex flex-col justify-between py-6 px-4 font-sans h-100vh bg-white",
       !isMobile && "border-r border-gray-100"
     )}>
 
-      <div className="flex items-center gap-3 px-2 mb-10">
+      <div>
+        <div className="flex items-center gap-3 px-2 mb-8">
         <div className="w-10 h-10 bg-[#f47b25] rounded-xl flex items-center justify-center ">
           <Box className="text-white w-6 h-6" />
         </div>
@@ -65,8 +66,22 @@ export default function Sidebar({ isMobile }: SidebarProps) {
           </NavLink>
         ))}
       </nav>
+      </div>
 
-     
+      <Link to={"/login"}>
+      <div className="profile border border-gray-200 rounded-2xl p-3 bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center shrink-0">
+              <span className="text-xl">PS</span>
+            </div>
+            <div className="flex-1 min-w-0">
+              <h3 className="text-[13px] font-bold text-[#1a2233] leading-tight">Premium Seller</h3>
+              <p className="text-[12px] text-gray-500">ID: 450921</p>
+            </div>
+            <LogOut className="w-4 h-4 text-gray-400 shrink-0" />
+          </div>
+        </div>
+      </Link>
     </aside>
   );
 }

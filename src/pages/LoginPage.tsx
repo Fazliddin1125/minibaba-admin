@@ -43,7 +43,7 @@ export default function LoginPage() {
     await new Promise((r) => setTimeout(r, 1500));
     console.log("Login data:", data);
     setLoading(false);
-    navigate("/dashboard");
+    navigate("/");
   };
 
   return (
