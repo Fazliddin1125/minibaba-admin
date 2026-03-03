@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route} from "react-router-dom";
 
 import Home from "./pages/Home/Home";
 import Products from "./pages/Products";
@@ -20,7 +20,7 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
       </div>
       <div className="flex-1 flex flex-col h-full min-w-0">
         <Navbar />
-        <main className="flex-1 overflow-y-auto bg-[#f8f9fa]">
+        <main className="flex-1  p-4 overflow-y-auto bg-[#f8f9fa]">
           {children}
         </main>
       </div>
@@ -38,8 +38,8 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
         {/* Alohida sahifalar - layout yo'q */}
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/add-product" element={<AddProductPage />} />
+        <Route path="/settings" element={<DashboardLayout><Settings /></DashboardLayout>  }/>
+        <Route path="/add-product" element={<DashboardLayout> <AddProductPage /></DashboardLayout>} />
 
         {/* Dashboard sahifalari - Sidebar + Navbar bilan */}
         <Route path="/" element={<DashboardLayout><Home /></DashboardLayout>} />

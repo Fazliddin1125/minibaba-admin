@@ -14,7 +14,7 @@ export default function Home() {
   const navigate = useNavigate()
 
   return (
-    <div className="bg-[--background] font-sans">
+    <div className="bg-[--background] md:p-4 p-2 font-sans">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-[--foreground]">

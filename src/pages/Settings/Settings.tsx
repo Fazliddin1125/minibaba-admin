@@ -4,7 +4,7 @@ import { useSettingsStore } from "../../store/settingsStore";
 import { settingsSchema, type SettingsFormData } from "../../store/settingsSchema";
 
 // UI Components
-import Header from "./ui/Header";
+
 import Footer from "./ui/Footer";
 import StoreInfoCard from "./ui/StoreInfoCard";
 import StoreBannerCard from "./ui/StoreBannerCard";
@@ -13,7 +13,7 @@ import BusinessDocumentsCard from "./ui/BusinessDocumentsCard";
 import WarehouseLocationCard from "./ui/WareHouseLocationCard";
 import i18n from "@/i18n/i18n";
 
-export default function Settings() {
+export default function  Settings() {
   const { formData, save, isSaving, isDirty, reset } = useSettingsStore();
   const [errors, setErrors] = useState<
     Partial<Record<keyof SettingsFormData, string>>
@@ -47,9 +47,9 @@ export default function Settings() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <Header />
+      {/* <Header /> */}
 
-      <main className="flex-1 w-full max-w-300 mx-auto px-4 py-8">
+      <main className="flex-1 w-full max-w-300 mx-auto md:p-4 p-2">
         {/* Sahifa headeri */}
         <div className="flex items-center md:items-end flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-8">
           <div>

@@ -292,7 +292,7 @@ function CancelModal({
 
         {/* Warning */}
         <div className="mx-6 mt-5 mb-5 bg-red-50 border border-red-100 rounded-xl px-4 py-3 flex gap-3 items-start">
-          <AlertTriangle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+          <AlertTriangle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
           <p className="text-sm text-red-600 leading-relaxed">
             Haqiqatdan ham ushbu buyurtmani bekor qilmoqchimisiz? Bu amalni ortga qaytarib bo'lmaydi.
           </p>
@@ -446,7 +446,7 @@ function StatusModal({
                   {...register("newStatus")}
                   className="hidden"
                 />
-                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-0.5 transition-colors ${dotBorderClass}`}>
+                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors ${dotBorderClass}`}>
                   <div className={`w-2.5 h-2.5 rounded-full transition-all duration-150 ${dotFillClass}`} />
                 </div>
                 <div>
@@ -530,7 +530,7 @@ export default function OrderDetailPage() {
 
   if (!order) {
     return (
-      <div className="p-6 flex flex-col items-center justify-center min-h-[400px] gap-4">
+      <div className="p-6 flex flex-col items-center justify-center min-h-100 gap-4">
         <Package className="w-12 h-12 text-gray-300" />
         <p className="text-gray-400">{t("order_not_found")}</p>
         <button onClick={() => navigate(-1)} className="text-[#F97316] hover:underline flex items-center gap-2 text-sm font-medium">
@@ -629,7 +629,7 @@ export default function OrderDetailPage() {
                   {order.products.map((p) => (
                     <tr key={p.id} className="border-b border-gray-50 hover:bg-gray-50/40 transition-colors">
                       <td className="px-6 py-4">
-                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden flex items-center justify-center flex-shrink-0">
+                        <div className="w-12 h-12 rounded-xl bg-linear-to-br from-gray-100 to-gray-200 overflow-hidden flex items-center justify-center shrink-0">
                           {p.image ? <img src={p.image} alt={p.name} className="w-full h-full object-cover" /> : null}
                         </div>
                       </td>
@@ -665,7 +665,7 @@ export default function OrderDetailPage() {
                 <div key={idx} className="flex gap-4">
                   <div className="flex flex-col items-center">
                     <div
-                      className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ${
+                      className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-colors ${
                         step.done ? "bg-[#F97316]" : "bg-gray-100"
                       }`}
                     >
@@ -691,7 +691,7 @@ export default function OrderDetailPage() {
         </div>
 
         {/* ── RIGHT ── */}
-        <div className="w-full lg:w-[272px] flex flex-col gap-4">
+        <div className="w-full lg:w-68 flex flex-col gap-4">
 
           {/* Client */}
           <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
@@ -700,7 +700,7 @@ export default function OrderDetailPage() {
               <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest">{t("client")}</h2>
             </div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-11 h-11 rounded-full bg-orange-100 flex items-center justify-center text-[#F97316] font-bold text-sm flex-shrink-0">
+              <div className="w-11 h-11 rounded-full bg-orange-100 flex items-center justify-center text-[#F97316] font-bold text-sm shrink-0">
                 {order.client.name.charAt(0)}
               </div>
               <div>
@@ -731,7 +731,7 @@ export default function OrderDetailPage() {
                 <span className="text-xs text-gray-400">{t("payment_method")}:</span>
                 <div className="flex items-center gap-1.5">
                   <span className="text-xs font-semibold text-gray-700">{order.payment.method}</span>
-                  <span className="w-2 h-2 rounded-full bg-green-400 flex-shrink-0" />
+                  <span className="w-2 h-2 rounded-full bg-green-400 shrink-0" />
                 </div>
               </div>
               <div className="flex justify-between items-center">
