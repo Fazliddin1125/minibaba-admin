@@ -1,13 +1,15 @@
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, Box, ShoppingCart, MessageSquare, BarChart3 } from "lucide-react";
+import { LayoutDashboard, Box, ShoppingCart, MessageSquare, BarChart3, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const menuItems = [
   { icon: LayoutDashboard, label: "Asosiy panel", href: "/" },
-  { icon: Box, label: "Mahsulotlar", href: "/dashboard/products" },
+  { icon: Box, label: "Mahsulotlar", href: "/products" },
   { icon: ShoppingCart, label: "Buyurtmalar", href: "/orders" },
-  { icon: MessageSquare, label: "Xabarlar", href: "/dashboard/messages" },
-  { icon: BarChart3, label: "Statistika", href: "/dashboard/statistics" },
+  { icon: MessageSquare, label: "Xabarlar", href: "/messages" },
+  { icon: Settings, label: "Sozlamalar", href: "/settings" },
+  { icon: BarChart3, label: "Statistika", href: "/statistics" },
+  { icon: Box, label: "Yangi mahsulot qo'shish", href: "/add-product" },
 ];
 
 type SidebarProps ={
@@ -17,7 +19,7 @@ type SidebarProps ={
 export default function Sidebar({ isMobile }: SidebarProps) {
   return (
     <aside className={cn(
-      "w-64 h-full bg-white flex flex-col py-6 px-4 font-sans",
+      "w-64 h-full flex flex-col py-6 px-4 font-sans h-100vh bg-white",
       !isMobile && "border-r border-gray-100"
     )}>
 
