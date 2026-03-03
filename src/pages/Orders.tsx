@@ -2,6 +2,7 @@ import { useOrdersStore } from "../store/ordersStore";
 import type { OrderStatus, Order } from "../store/ordersStore";
 import { useTranslation } from "react-i18next";
 import { Download, ChevronLeft, ChevronRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -27,6 +28,7 @@ function StatCard({ label, value, change }: { label: string; value: number; chan
 export default function Orders() {
   const { orders, activeTab, currentPage, setActiveTab, setCurrentPage } = useOrdersStore();
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const statusConfig: Record<OrderStatus, { label: string; className: string }> = {
     yangi:         { label: t("status_new"),        className: "bg-orange-100 text-orange-600" },
@@ -64,7 +66,6 @@ export default function Orders() {
 
   return (
     <div className="p-6 bg-[#f8f9fa] min-h-screen">
-      {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">{t("orders_title")}</h1>
@@ -79,17 +80,14 @@ export default function Orders() {
         </button>
       </div>
 
-      {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <StatCard label={t("stat_new")}       value={counts.yangi}         change={14} />
-        <StatCard label={t("stat_accepted")}  value={counts.qabul_qilindi} change={2}  />
-        <StatCard label={t("stat_delivering")}value={counts.yetkazilmoqda} change={-1} />
-        <StatCard label={t("stat_done")}      value={counts.yakunlandi}    change={8}  />
+        <StatCard label={t("stat_new")}        value={counts.yangi}         change={14} />
+        <StatCard label={t("stat_accepted")}   value={counts.qabul_qilindi} change={2}  />
+        <StatCard label={t("stat_delivering")} value={counts.yetkazilmoqda} change={-1} />
+        <StatCard label={t("stat_done")}       value={counts.yakunlandi}    change={8}  />
       </div>
 
-      {/* Table Card */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-        {/* Tabs */}
         <div className="flex border-b border-gray-100 px-6 pt-4 gap-1 overflow-x-auto">
           {tabs.map((tab) => {
             const count = tab.key === "all" ? orders.length : counts[tab.key as OrderStatus];
@@ -115,7 +113,6 @@ export default function Orders() {
           })}
         </div>
 
-        {/* Table */}
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -139,7 +136,8 @@ export default function Orders() {
                 paginated.map((order: Order, idx: number) => (
                   <tr
                     key={order.id}
-                    className={`border-b border-gray-50 hover:bg-orange-50/30 transition-colors ${
+                    onClick={() => navigate(`/orders/${encodeURIComponent(order.id)}`)}
+                    className={`border-b border-gray-50 hover:bg-orange-50/30 transition-colors cursor-pointer ${
                       idx % 2 !== 0 ? "bg-gray-50/30" : ""
                     }`}
                   >
@@ -158,7 +156,13 @@ export default function Orders() {
                       </span>
                     </td>
                     <td className="px-6 py-4 text-right">
-                      <button className="text-sm font-semibold text-[#F97316] hover:underline">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/orders/${encodeURIComponent(order.id)}`);
+                        }}
+                        className="text-sm font-semibold text-[#F97316] hover:underline"
+                      >
                         {t("details")}
                       </button>
                     </td>
@@ -169,7 +173,6 @@ export default function Orders() {
           </table>
         </div>
 
-        {/* Pagination */}
         <div className="flex items-center justify-between px-6 py-4 border-t border-gray-50">
           <p className="text-sm text-gray-400">
             {t("showing", { total: filtered.length, from, to })}

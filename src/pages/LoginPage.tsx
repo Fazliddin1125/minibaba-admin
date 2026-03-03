@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { Eye, EyeOff, ShoppingBag, Mail, Lock, Shield, Headphones } from "lucide-react";
 import { useAuthStore } from "@/store/ authStore";
 
+
 const loginSchema = (t: (key: string) => string) =>
   z.object({
     email: z.string().min(1, t("email_required")).email(t("email_invalid")),
@@ -24,7 +25,6 @@ const languages = [
   { code: "uz", label: "O'zbekcha" },
   { code: "ru", label: "Русский" },
   { code: "en", label: "English" },
-  
 ];
 
 export default function LoginPage() {
@@ -43,7 +43,7 @@ export default function LoginPage() {
     await new Promise((r) => setTimeout(r, 1500));
     console.log("Login data:", data);
     setLoading(false);
-    navigate("/dashboard");
+    navigate("/");
   };
 
   return (
@@ -66,7 +66,8 @@ export default function LoginPage() {
           <h1 className="text-white text-4xl font-extrabold leading-tight mb-4">
             {t("hero_text")}
           </h1>
-          <p className="text-white/80 text-sm leading-relaxed max-w-xs">
+          {/* Kattaroq: text-lg, font-medium, opacity oshirildi */}
+          <p className="text-white/90 text-lg font-medium leading-relaxed max-w-sm">
             {t("hero_desc")}
           </p>
         </div>
@@ -92,7 +93,7 @@ export default function LoginPage() {
       {/* Right Panel */}
       <div className="flex-1 flex flex-col bg-white">
 
-        {/* Mobile Header - faqat mobileda ko'rinadi */}
+        {/* Mobile Header */}
         <div className="md:hidden bg-[#F97316] px-6 py-5 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 bg-white rounded-xl flex items-center justify-center shadow-md">
@@ -100,7 +101,6 @@ export default function LoginPage() {
             </div>
             <span className="text-white font-bold text-base tracking-wide">Minibaba Admin</span>
           </div>
-          {/* Til tanlash - mobil header da */}
           <div className="flex gap-2 text-xs">
             {languages.map((lang) => (
               <button
@@ -118,11 +118,11 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* Form qismi */}
+        {/* Form */}
         <div className="flex-1 flex flex-col items-center justify-center px-6 md:px-8 py-8">
           <div className="w-full max-w-md">
 
-            {/* Til tanlash - desktop da */}
+            {/* Til tanlash - desktop */}
             <div className="hidden md:flex justify-end gap-3 mb-10 text-sm">
               {languages.map((lang) => (
                 <button
@@ -142,7 +142,9 @@ export default function LoginPage() {
             <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-1">{t("login_title")}</h2>
             <p className="text-gray-400 text-sm mb-8">{t("login_subtitle")}</p>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+            {/* key={i18n.language}: til o'zganda forma qayta render bo'ladi —
+                validation xabarlari, labellar va placeholderlar to'g'ri tilda */}
+            <form key={i18n.language} onSubmit={handleSubmit(onSubmit)} className="space-y-5">
               <div>
                 <label className="block text-sm font-medium text-gray-600 mb-1.5">
                   {t("email_label")}

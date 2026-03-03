@@ -10,40 +10,43 @@ import Sidebar from "./components/shared/sidebar";
 import Navbar from "./components/shared/navbar";
 import AddProductPage from "./pages/AddProduct/AddProduct";
 import Settings from "./pages/Settings/Settings";
+import OrderDetailPage from "./pages/OrderDetailPage";
+
+function DashboardLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex h-screen w-full">
+      <div className="hidden md:flex h-full">
+        <Sidebar />
+      </div>
+      <div className="flex-1 flex flex-col h-full min-w-0">
+        <Navbar />
+        <main className="flex-1 overflow-y-auto bg-[#f8f9fa]">
+          {children}
+        </main>
+      </div>
+    </div>
+  );
+}
 
 function App() {
   return (
-    // mre
-    // 👇 Ushbu div'dan h-screen class'ini olib tashladim. Sababi mening bu yerga qo'shgan /add-product sahifasi scroll bo'lmayapti. /add-product sahifasini qurib bo'lgandan so'ng, path'larni to'g'irlab, /add-product sahifasini boshqa joyga ko'chiramiz. Shunda h-screen classini qayta qo'shib qo'yish kerak ushbu div'ga! (PRATOV)
-    <div className="w-full bg-background font-sans text-foreground overflow-hidden">
+    <div className="w-full bg-background font-sans text-foreground">
       <Routes>
 
-        {/* Auth sahifalari */}
+        {/* Auth sahifalari - layout yo'q */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
+        {/* Alohida sahifalar - layout yo'q */}
         <Route path="/settings" element={<Settings />} />
         <Route path="/add-product" element={<AddProductPage />} />
 
-        {/* Dashboard sahifalari */}
-        <Route path="/" element={
-          <div className="flex h-full w-full">
-            <div className="hidden md:flex h-full">
-              <Sidebar />
-            </div>
-            <div className="flex-1 flex flex-col h-full min-w-0">
-              <Navbar />
-              <main className="flex-1 overflow-y-auto p-4 md:p-6 bg-[#f8f9fa]">
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/products" element={<Products />} />
-                  <Route path="/orders" element={<Orders />} />
-                  <Route path="/messages" element={<Messages />} />
-                </Routes>
-              </main>
-            </div>
-          </div>
-        } />
+        {/* Dashboard sahifalari - Sidebar + Navbar bilan */}
+        <Route path="/" element={<DashboardLayout><Home /></DashboardLayout>} />
+        <Route path="/products" element={<DashboardLayout><Products /></DashboardLayout>} />
+        <Route path="/orders" element={<DashboardLayout><Orders /></DashboardLayout>} />
+        <Route path="/orders/:id" element={<DashboardLayout><OrderDetailPage /></DashboardLayout>} />
+        <Route path="/messages" element={<DashboardLayout><Messages /></DashboardLayout>} />
 
       </Routes>
     </div>
