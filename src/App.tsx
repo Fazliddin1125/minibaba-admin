@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home/Home";
 import Products from "./pages/Products";
@@ -11,6 +11,7 @@ import Navbar from "./components/shared/navbar";
 import AddProductPage from "./pages/AddProduct/AddProduct";
 import Settings from "./pages/Settings/Settings";
 import OrderDetailPage from "./pages/OrderDetailPage";
+import RFQ from "./pages/RFQ/RFQpage";
 
 function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -37,10 +38,6 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
-        {/* Alohida sahifalar - layout yo'q */}
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/add-product" element={<AddProductPage />} />
-
         {/* Dashboard sahifalari - Sidebar + Navbar bilan */}
         <Route path="/" element={<DashboardLayout><Home /></DashboardLayout>} />
         <Route path="/products" element={<DashboardLayout><Products /></DashboardLayout>} />
@@ -48,6 +45,11 @@ function App() {
         <Route path="/orders/:id" element={<DashboardLayout><OrderDetailPage /></DashboardLayout>} />
         <Route path="/messages" element={<DashboardLayout><Messages /></DashboardLayout>} />
 
+        <Route path="/settings" element={<DashboardLayout><Settings/></DashboardLayout>} />
+        <Route path="/add-product" element={<DashboardLayout><AddProductPage /></DashboardLayout>} />
+
+        <Route path="/rfq" element={<DashboardLayout><RFQ /></DashboardLayout>} />
+        
       </Routes>
     </div>
   );
