@@ -65,7 +65,7 @@ export default function Orders() {
   const to = Math.min(currentPage * ITEMS_PER_PAGE, filtered.length);
 
   return (
-    <div className="p-6 bg-[#f8f9fa] min-h-screen">
+    <div className="md:p-4 p-2 bg-[#f8f9fa] min-h-screen">
       <div className="flex items-start justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">{t("orders_title")}</h1>

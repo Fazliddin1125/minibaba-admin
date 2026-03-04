@@ -11,6 +11,9 @@ import Navbar from "./components/shared/navbar";
 import AddProductPage from "./pages/AddProduct/AddProduct";
 import Settings from "./pages/Settings/Settings";
 import OrderDetailPage from "./pages/OrderDetailPage";
+import MessagesLayout from "./pages/Messages/MessageLayout";
+import EmptyChatState from "./pages/Messages/EmptyChatState";
+import ChatDetail from "./pages/Messages/ChatDetail";
 
 function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -20,7 +23,7 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
       </div>
       <div className="flex-1 flex flex-col h-full min-w-0">
         <Navbar />
-        <main className="flex-1 overflow-y-auto bg-[#f8f9fa]">
+        <main className="flex-1  p-4 overflow-y-auto bg-[#f8f9fa]">
           {children}
         </main>
       </div>
@@ -38,14 +41,18 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
         {/* Alohida sahifalar - layout yo'q */}
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/add-product" element={<AddProductPage />} />
+        <Route path="/settings" element={<DashboardLayout><Settings /></DashboardLayout>} />
+        <Route path="/add-product" element={<DashboardLayout> <AddProductPage /></DashboardLayout>} />
 
         {/* Dashboard sahifalari - Sidebar + Navbar bilan */}
         <Route path="/" element={<DashboardLayout><Home /></DashboardLayout>} />
         <Route path="/products" element={<DashboardLayout><Products /></DashboardLayout>} />
         <Route path="/orders" element={<DashboardLayout><Orders /></DashboardLayout>} />
         <Route path="/orders/:id" element={<DashboardLayout><OrderDetailPage /></DashboardLayout>} />
+        <Route path="/messages" element={<DashboardLayout><MessagesLayout /></DashboardLayout> }>
+          <Route index element={<EmptyChatState />} /> 
+          <Route path=":chatId" element={<ChatDetail />} /> 
+        </Route>
         <Route path="/messages" element={<DashboardLayout><Messages /></DashboardLayout>} />
 
       </Routes>

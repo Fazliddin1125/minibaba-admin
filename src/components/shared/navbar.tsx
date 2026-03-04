@@ -14,9 +14,9 @@ export default function Navbar() {
   const { t, i18n } = useTranslation();
 
   return (
-    <header className="w-full h-[8vh] bg-white border-b border-gray-100 px-4 md:px-6 flex items-center justify-center font-sans">
+    <header className="w-full h-16 bg-white border-b border-gray-100 px-4 md:px-6 flex items-center justify-center sticky top-0 z-50 font-sans">
 
-      <div className="w-full  flex items-center justify-between  mx-auto">
+      <div className="w-full flex items-center justify-between mx-auto">
         {/* Chap tomondagi blok */}
         <div className="flex items-center gap-4 md:gap-8 flex-1">
 
@@ -59,10 +59,11 @@ export default function Navbar() {
               <button
                 key={lang.code}
                 onClick={() => i18n.changeLanguage(lang.code)}
-                className={`text-xs font-semibold px-2.5 py-1.5 rounded-md transition-all duration-200 ${i18n.language === lang.code
+                className={`text-xs font-semibold px-2.5 py-1.5 rounded-md transition-all duration-200 ${
+                  i18n.language === lang.code
                     ? "bg-[#F97316] text-white shadow-sm"
                     : "text-gray-400 hover:text-gray-600"
-                  }`}
+                }`}
               >
                 {lang.label}
               </button>

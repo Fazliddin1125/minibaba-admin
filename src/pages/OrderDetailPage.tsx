@@ -146,7 +146,9 @@ function Backdrop({ children, onClose }: { children: React.ReactNode; onClose: (
       style={{ backgroundColor: "rgba(0,0,0,0.45)" }}
       onClick={onClose}
     >
-      <div className="w-full max-w-lg mx-4" onClick={(e) => e.stopPropagation()}>{children}</div>
+      <div className="w-full max-w-lg mx-4" onClick={(e) => e.stopPropagation()}>
+        {children}
+      </div>
     </div>
   );
 }
@@ -168,7 +170,6 @@ function AcceptModal({
   });
 
   const onSubmit = (data: AcceptForm) => {
-    // TODO: API - acceptOrder(order.id, data)
     console.log("Accept:", data);
     onSuccess();
     onClose();
@@ -245,7 +246,7 @@ function AcceptModal({
           <button
             type="button"
             onClick={onClose}
-            className="w-full text-sm text-gray-400 hover:text-gray-600 transition-colors py-1"
+            className="w-full border border-gray-200 text-gray-600 font-semibold py-3 rounded-xl hover:bg-gray-50 transition-all text-sm"
           >
             {tModal("cancel_order")}
           </button>
@@ -269,7 +270,6 @@ function CancelModal({
   });
 
   const onSubmit = (data: CancelForm) => {
-    // TODO: API - cancelOrder(order.id, data)
     console.log("Cancel:", data);
     onSuccess();
     onClose();
@@ -287,9 +287,9 @@ function CancelModal({
         </div>
 
         {/* Warning */}
-        <div className="mx-6 mb-5 bg-red-50 border border-red-100 rounded-xl px-4 py-3 flex gap-3">
-          <AlertTriangle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
-          <p className="text-sm text-red-600">
+        <div className="mx-6 mt-2 mb-5 bg-red-50 border border-red-100 rounded-xl px-4 py-3 flex gap-3 items-start">
+          <AlertTriangle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
+          <p className="text-sm text-red-600 leading-relaxed">
             {tCancel("modal_cancel_warning")}
           </p>
         </div>
@@ -376,7 +376,6 @@ function StatusModal({
   const selected = watch("newStatus");
 
   const onSubmit = (data: StatusForm) => {
-    // TODO: API - updateOrderStatus(order.id, data.newStatus)
     console.log("Status:", data);
     onSuccess(data.newStatus);
     onClose();
@@ -396,27 +395,26 @@ function StatusModal({
         <form onSubmit={handleSubmit(onSubmit)} className="px-6 pb-6 flex flex-col gap-3">
           {statusOptionKeys.map((opt) => {
             const isSelected = selected === opt.value;
-            const borderColor =
-              isSelected
-                ? opt.color === "red"
-                  ? "border-red-400 bg-red-50"
-                  : "border-[#F97316] bg-orange-50"
-                : "border-gray-200 bg-white hover:border-gray-300";
-            const dotColor =
-              opt.color === "red" ? "border-red-400" : "border-[#F97316]";
-            const dotFill =
-              isSelected
-                ? opt.color === "red"
-                  ? "bg-red-400"
-                  : "bg-[#F97316]"
-                : "bg-transparent";
-            const labelColor =
-              opt.color === "red" ? "text-red-500" : "text-gray-800";
+            const isRed = opt.color === "red";
+
+            const borderClass = isSelected
+              ? isRed ? "border-red-400 bg-red-50" : "border-[#F97316] bg-orange-50"
+              : "border-gray-200 bg-white hover:border-gray-300";
+
+            const dotBorderClass = isSelected
+              ? isRed ? "border-red-400" : "border-[#F97316]"
+              : "border-gray-300";
+
+            const dotFillClass = isSelected
+              ? isRed ? "bg-red-400 scale-100" : "bg-[#F97316] scale-100"
+              : "bg-transparent scale-0";
+
+            const labelClass = isRed ? "text-red-500" : "text-gray-800";
 
             return (
               <label
                 key={opt.value}
-                className={`flex items-start gap-3 border-2 rounded-xl px-4 py-3.5 cursor-pointer transition-all duration-150 ${borderColor}`}
+                className={`flex items-start gap-3 border-2 rounded-xl px-4 py-3.5 cursor-pointer transition-all duration-150 ${borderClass}`}
               >
                 <input
                   type="radio"
@@ -424,11 +422,11 @@ function StatusModal({
                   {...register("newStatus")}
                   className="hidden"
                 />
-                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-0.5 ${isSelected ? dotColor : "border-gray-300"}`}>
-                  <div className={`w-2.5 h-2.5 rounded-full transition-all ${dotFill}`} />
+                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors ${dotBorderClass}`}>
+                  <div className={`w-2.5 h-2.5 rounded-full transition-all duration-150 ${dotFillClass}`} />
                 </div>
                 <div>
-                  <p className={`text-sm font-semibold ${labelColor}`}>{tStatus(opt.labelKey)}</p>
+                  <p className={`text-sm font-semibold ${labelClass}`}>{tStatus(opt.labelKey)}</p>
                   <p className="text-xs text-gray-400 mt-0.5">{tStatus(opt.descKey)}</p>
                 </div>
               </label>
@@ -467,9 +465,6 @@ export default function OrderDetailPage() {
     id ? mockOrders[decodeURIComponent(id)] ?? null : null
   );
 
-  // TODO: Replace with API call:
-  // useEffect(() => { fetchOrderDetail(id).then(setCurrentOrder) }, [id])
-
   const order = currentOrder;
 
   const statusConfig: Record<string, { label: string; bg: string }> = {
@@ -488,7 +483,7 @@ export default function OrderDetailPage() {
   const historyLabels: Record<string, string> = {
     order_created:     t("history_created"),
     payment_confirmed: t("history_payment"),
-    order_accepted:    "Buyurtma qabul qilindi",
+    order_accepted:    t("order_accepted"),
     in_progress:       t("history_progress"),
   };
 
@@ -601,7 +596,7 @@ export default function OrderDetailPage() {
                   {order.products.map((p) => (
                     <tr key={p.id} className="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
                       <td className="px-6 py-4">
-                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden flex items-center justify-center">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden flex items-center justify-center shrink-0">
                           {p.image ? <img src={p.image} alt={p.name} className="w-full h-full object-cover" /> : null}
                         </div>
                       </td>
@@ -636,7 +631,7 @@ export default function OrderDetailPage() {
               {order.history.map((step, idx) => (
                 <div key={idx} className="flex gap-4">
                   <div className="flex flex-col items-center">
-                    <div className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ${step.done ? "bg-[#F97316]" : "bg-gray-100"}`}>
+                    <div className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-colors ${step.done ? "bg-[#F97316]" : "bg-gray-100"}`}>
                       {step.icon === "cart"   && <span className="text-base">🛒</span>}
                       {step.icon === "check"  && <CheckCircle className={`w-4 h-4 ${step.done ? "text-white" : "text-gray-300"}`} />}
                       {step.icon === "person" && <User className={`w-4 h-4 ${step.done ? "text-white" : "text-gray-300"}`} />}
@@ -668,7 +663,7 @@ export default function OrderDetailPage() {
               <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest">{t("client")}</h2>
             </div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-11 h-11 rounded-full bg-orange-100 flex items-center justify-center text-[#F97316] font-bold text-base flex-shrink-0">
+              <div className="w-11 h-11 rounded-full bg-orange-100 flex items-center justify-center text-[#F97316] font-bold text-base shrink-0">
                 {order.client.name.charAt(0)}
               </div>
               <div>
@@ -698,8 +693,8 @@ export default function OrderDetailPage() {
               <div className="flex justify-between items-center">
                 <span className="text-xs text-gray-400">{t("payment_method")}:</span>
                 <div className="flex items-center gap-1.5">
-                  <span className="text-xs font-medium text-gray-700">{order.payment.method}</span>
-                  <span className="w-2 h-2 rounded-full bg-green-400" />
+                  <span className="text-xs font-semibold text-gray-700">{order.payment.method}</span>
+                  <span className="w-2 h-2 rounded-full bg-green-400 shrink-0" />
                 </div>
               </div>
               <div className="flex justify-between items-center">
@@ -735,7 +730,6 @@ export default function OrderDetailPage() {
       <div className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-100 shadow-lg px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 md:left-64">
         <div className="flex flex-wrap gap-3 w-full sm:w-auto">
           {isNew ? (
-            /* YANGI holat: Qabul qilish tugmasi */
             <button
               onClick={() => setModal("accept")}
               className="flex items-center gap-2 bg-[#F97316] hover:bg-[#ea6c0c] text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-all duration-200 shadow-lg shadow-orange-100"
@@ -744,7 +738,6 @@ export default function OrderDetailPage() {
               {t("accept_order")}
             </button>
           ) : (
-            /* Boshqa holatlar: Status o'zgartirish */
             <button
               onClick={() => setModal("status")}
               className="flex items-center gap-2 bg-[#F97316] hover:bg-[#ea6c0c] text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-all duration-200 shadow-lg shadow-orange-100"
@@ -756,10 +749,7 @@ export default function OrderDetailPage() {
           )}
 
           <button
-            onClick={() => {
-              // TODO: API - downloadInvoice(order.id)
-              alert(t("invoice_downloaded"));
-            }}
+            onClick={() => alert(t("invoice_downloaded"))}
             className="flex items-center gap-2 border border-[#F97316] text-[#F97316] hover:bg-orange-50 text-sm font-semibold px-5 py-2.5 rounded-xl transition-all duration-200"
           >
             <FileText className="w-4 h-4" />
