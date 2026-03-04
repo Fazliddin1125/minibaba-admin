@@ -75,7 +75,7 @@ const acceptSchema = z.object({
 });
 
 const cancelSchema = z.object({
-  reason: z.string().min(1, "Sababni tanlang"),
+  reason: z.string().min(1, "required"),
   comment: z.string().optional(),
 });
 
@@ -143,10 +143,12 @@ function Backdrop({ children, onClose }: { children: React.ReactNode; onClose: (
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+      style={{ backgroundColor: "rgba(0,0,0,0.45)" }}
       onClick={onClose}
     >
-      <div onClick={(e) => e.stopPropagation()}>{children}</div>
+      <div className="w-full max-w-lg mx-4" onClick={(e) => e.stopPropagation()}>
+        {children}
+      </div>
     </div>
   );
 }
@@ -161,13 +163,13 @@ function AcceptModal({
   onClose: () => void;
   onSuccess: () => void;
 }) {
+  const { t: tModal } = useTranslation();
   const { register, handleSubmit, formState: { errors } } = useForm<AcceptForm>({
     resolver: zodResolver(acceptSchema),
-    defaultValues: { deliveryDate: "Bugun" },
+    defaultValues: { deliveryDate: "today" },
   });
 
   const onSubmit = (data: AcceptForm) => {
-    // TODO: API - acceptOrder(order.id, data)
     console.log("Accept:", data);
     onSuccess();
     onClose();
@@ -175,27 +177,24 @@ function AcceptModal({
 
   return (
     <Backdrop onClose={onClose}>
-      <div className="bg-white rounded-2xl shadow-2xl overflow-hidden" style={{ width: "400px", maxWidth: "calc(100vw - 32px)" }}>
+      <div className="bg-white rounded-2xl shadow-2xl w-full overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between px-6 pt-6 pb-4">
-          <h2 className="text-lg font-bold text-gray-900">Buyurtmani tasdiqlash</h2>
-          <button
-            onClick={onClose}
-            className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors text-gray-400 hover:text-gray-600"
-          >
+          <h2 className="text-lg font-bold text-gray-800">{tModal("modal_accept_title")}</h2>
+          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors text-gray-400">
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Order info banner */}
+        {/* Order info */}
         <div className="mx-6 mb-5 bg-orange-50 rounded-xl px-4 py-3 flex items-center justify-between">
           <div>
-            <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold mb-1">BUYURTMA</p>
-            <p className="text-sm font-bold text-gray-900">{order.id}</p>
+            <p className="text-xs text-gray-400 uppercase tracking-widest font-semibold mb-0.5">{tModal("modal_accept_order_label")}</p>
+            <p className="text-base font-bold text-gray-800">{order.id}</p>
           </div>
           <div className="text-right">
-            <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold mb-1">JAMI SUMMA</p>
-            <p className="text-sm font-bold text-[#F97316]">
+            <p className="text-xs text-gray-400 uppercase tracking-widest font-semibold mb-0.5">{tModal("modal_accept_total_label")}</p>
+            <p className="text-base font-bold text-[#F97316]">
               {fmt(order.products.reduce((s, p) => s + p.price * p.quantity, 0))}
             </p>
           </div>
@@ -204,19 +203,19 @@ function AcceptModal({
         <form onSubmit={handleSubmit(onSubmit)} className="px-6 pb-6 flex flex-col gap-4">
           {/* Delivery date */}
           <div>
-            <label className="block text-sm font-semibold text-gray-800 mb-2">
-              Taxminiy yetkazib berish muddati
+            <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+              {tModal("modal_delivery_date")}
             </label>
             <div className="relative">
               <select
                 {...register("deliveryDate")}
-                className="w-full appearance-none bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-700 focus:outline-none focus:border-[#F97316] focus:ring-2 focus:ring-orange-100 transition-all pr-10 cursor-pointer"
+                className="w-full appearance-none border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-700 bg-white focus:outline-none focus:border-[#F97316] focus:ring-2 focus:ring-orange-100 transition-all pr-10"
               >
-                <option value="Bugun">Bugun</option>
-                <option value="Ertaga">Ertaga</option>
-                <option value="2 kun ichida">2 kun ichida</option>
-                <option value="3 kun ichida">3 kun ichida</option>
-                <option value="1 hafta ichida">1 hafta ichida</option>
+                <option value="today">{tModal("modal_delivery_today")}</option>
+                <option value="tomorrow">{tModal("modal_delivery_tomorrow")}</option>
+                <option value="2days">{tModal("modal_delivery_2days")}</option>
+                <option value="3days">{tModal("modal_delivery_3days")}</option>
+                <option value="week">{tModal("modal_delivery_week")}</option>
               </select>
               <ChevronDown className="w-4 h-4 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
             </div>
@@ -225,31 +224,31 @@ function AcceptModal({
 
           {/* Note */}
           <div>
-            <label className="block text-sm font-semibold text-gray-800 mb-2">
-              Mijozga eslatma <span className="text-gray-400 font-normal">(ixtiyoriy)</span>
+            <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+              {tModal("modal_note")} <span className="text-gray-400 font-normal">{tModal("modal_note_optional")}</span>
             </label>
             <textarea
               {...register("note")}
-              rows={4}
-              placeholder="Masalan: Buyurtmangiz tayyorlanmoqda..."
-              className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-700 resize-none focus:outline-none focus:border-[#F97316] focus:ring-2 focus:ring-orange-100 transition-all placeholder-gray-300"
+              rows={3}
+              placeholder={tModal("modal_note_placeholder")}
+              className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-700 resize-none focus:outline-none focus:border-[#F97316] focus:ring-2 focus:ring-orange-100 transition-all placeholder-gray-300"
             />
           </div>
 
           {/* Buttons */}
           <button
             type="submit"
-            className="w-full flex items-center justify-center gap-2 bg-[#F97316] hover:bg-[#ea6c0c] active:bg-[#d96009] text-white font-semibold py-3.5 rounded-xl transition-all duration-200 text-sm mt-1"
+            className="w-full flex items-center justify-center gap-2 bg-[#F97316] hover:bg-[#ea6c0c] text-white font-semibold py-3 rounded-xl transition-all duration-200 shadow-lg shadow-orange-100"
           >
             <CheckCircle className="w-4 h-4" />
-            Tasdiqlash va qabul qilish
+            {tModal("modal_confirm_accept")}
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="w-full text-sm text-gray-400 hover:text-gray-600 transition-colors py-1 text-center"
+            className="w-full border border-gray-200 text-gray-600 font-semibold py-3 rounded-xl hover:bg-gray-50 transition-all text-sm"
           >
-            Bekor qilish
+            {tModal("cancel_order")}
           </button>
         </form>
       </div>
@@ -265,12 +264,12 @@ function CancelModal({
   onClose: () => void;
   onSuccess: () => void;
 }) {
+  const { t: tCancel } = useTranslation();
   const { register, handleSubmit, formState: { errors } } = useForm<CancelForm>({
     resolver: zodResolver(cancelSchema),
   });
 
   const onSubmit = (data: CancelForm) => {
-    // TODO: API - cancelOrder(order.id, data)
     console.log("Cancel:", data);
     onSuccess();
     onClose();
@@ -278,44 +277,41 @@ function CancelModal({
 
   return (
     <Backdrop onClose={onClose}>
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-2xl w-full overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-gray-100">
-          <h2 className="text-base font-bold text-gray-900">Buyurtmani bekor qilish</h2>
-          <button
-            onClick={onClose}
-            className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors text-gray-400 hover:text-gray-600"
-          >
+        <div className="flex items-center justify-between px-6 pt-6 pb-4">
+          <h2 className="text-lg font-bold text-gray-800">{tCancel("modal_cancel_title")}</h2>
+          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors text-gray-400">
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Warning */}
-        <div className="mx-6 mt-5 mb-5 bg-red-50 border border-red-100 rounded-xl px-4 py-3 flex gap-3 items-start">
-          <AlertTriangle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+        <div className="mx-6 mt-2 mb-5 bg-red-50 border border-red-100 rounded-xl px-4 py-3 flex gap-3 items-start">
+          <AlertTriangle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
           <p className="text-sm text-red-600 leading-relaxed">
-            Haqiqatdan ham ushbu buyurtmani bekor qilmoqchimisiz? Bu amalni ortga qaytarib bo'lmaydi.
+            {tCancel("modal_cancel_warning")}
           </p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="px-6 pb-6 flex flex-col gap-4">
           {/* Reason */}
           <div>
-            <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
-              Bekor qilish sababi
+            <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5">
+              {tCancel("modal_cancel_reason_label")}
             </label>
             <div className="relative">
               <select
                 {...register("reason")}
-                className="w-full appearance-none bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-700 focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-50 transition-all pr-10 cursor-pointer"
+                className="w-full appearance-none border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-700 bg-white focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-50 transition-all pr-10"
                 defaultValue=""
               >
-                <option value="" disabled>Sababni tanlang</option>
-                <option value="stok_yoq">Mahsulot stokda yo'q</option>
-                <option value="mijoz_rad">Mijoz rad etdi</option>
-                <option value="tolov_amalga_oshmadi">To'lov amalga oshmadi</option>
-                <option value="yetkazib_berib_bolmaydi">Yetkazib berib bo'lmaydi</option>
-                <option value="boshqa">Boshqa sabab</option>
+                <option value="" disabled>{tCancel("modal_cancel_reason_placeholder")}</option>
+                <option value="stok_yoq">{tCancel("modal_cancel_reason_no_stock")}</option>
+                <option value="mijoz_rad">{tCancel("modal_cancel_reason_client")}</option>
+                <option value="tolov_amalga_oshmadi">{tCancel("modal_cancel_reason_payment")}</option>
+                <option value="yetkazib_berib_bolmaydi">{tCancel("modal_cancel_reason_delivery")}</option>
+                <option value="boshqa">{tCancel("modal_cancel_reason_other")}</option>
               </select>
               <ChevronDown className="w-4 h-4 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
             </div>
@@ -324,14 +320,14 @@ function CancelModal({
 
           {/* Comment */}
           <div>
-            <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">
-              Izoh
+            <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5">
+              {tCancel("modal_cancel_comment_label")}
             </label>
             <textarea
               {...register("comment")}
               rows={3}
-              placeholder="Qo'shimcha ma'lumot qoldiring..."
-              className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-700 resize-none focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-50 transition-all placeholder-gray-300"
+              placeholder={tCancel("modal_cancel_comment_placeholder")}
+              className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-700 resize-none focus:outline-none focus:border-red-400 focus:ring-2 focus:ring-red-50 transition-all placeholder-gray-300"
             />
           </div>
 
@@ -340,15 +336,15 @@ function CancelModal({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 border border-gray-200 bg-white text-gray-600 font-semibold py-2.5 rounded-xl hover:bg-gray-50 transition-all text-sm"
+              className="flex-1 border border-gray-200 text-gray-600 font-semibold py-2.5 rounded-xl hover:bg-gray-50 transition-all text-sm"
             >
-              Orqaga
+              {tCancel("modal_back")}
             </button>
             <button
               type="submit"
-              className="flex-1 bg-red-500 hover:bg-red-600 active:bg-red-700 text-white font-semibold py-2.5 rounded-xl transition-all text-sm shadow-md shadow-red-100"
+              className="flex-1 bg-red-500 hover:bg-red-600 text-white font-semibold py-2.5 rounded-xl transition-all text-sm shadow-lg shadow-red-100"
             >
-              Bekor qilishni tasdiqlash
+              {tCancel("modal_confirm_cancel")}
             </button>
           </div>
         </form>
@@ -358,25 +354,10 @@ function CancelModal({
 }
 
 // ===== STATUS MODAL =====
-const statusOptions = [
-  {
-    value: "tayyorlanmoqda",
-    label: "Tayyorlanmoqda (Upakovka)",
-    desc: "Buyurtma qadoqlash jarayonida",
-    color: "orange",
-  },
-  {
-    value: "yetkazilmoqda",
-    label: "Yetkazib berish xizmatiga topshirildi",
-    desc: "Kuryerga muvaffaqiyatli topshirilgan",
-    color: "blue",
-  },
-  {
-    value: "bekor",
-    label: "Bekor qilish",
-    desc: "Buyurtmani to'xtatish va bekor qilish",
-    color: "red",
-  },
+const statusOptionKeys = [
+  { value: "tayyorlanmoqda", labelKey: "modal_status_packing", descKey: "modal_status_packing_desc", color: "orange" },
+  { value: "yetkazilmoqda", labelKey: "modal_status_shipped", descKey: "modal_status_shipped_desc", color: "blue" },
+  { value: "bekor", labelKey: "modal_status_cancel", descKey: "modal_status_cancel_desc", color: "red" },
 ];
 
 function StatusModal({
@@ -386,6 +367,7 @@ function StatusModal({
   onClose: () => void;
   onSuccess: (status: string) => void;
 }) {
+  const { t: tStatus } = useTranslation();
   const { register, handleSubmit, watch } = useForm<StatusForm>({
     resolver: zodResolver(statusSchema),
     defaultValues: { newStatus: "tayyorlanmoqda" },
@@ -394,7 +376,6 @@ function StatusModal({
   const selected = watch("newStatus");
 
   const onSubmit = (data: StatusForm) => {
-    // TODO: API - updateOrderStatus(order.id, data.newStatus)
     console.log("Status:", data);
     onSuccess(data.newStatus);
     onClose();
@@ -402,27 +383,22 @@ function StatusModal({
 
   return (
     <Backdrop onClose={onClose}>
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-2xl w-full overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 pt-6 pb-5 border-b border-gray-100">
-          <h2 className="text-base font-bold text-gray-900">Statusni o'zgartirish</h2>
-          <button
-            onClick={onClose}
-            className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors text-gray-400 hover:text-gray-600"
-          >
+        <div className="flex items-center justify-between px-6 pt-6 pb-5">
+          <h2 className="text-lg font-bold text-gray-800">{tStatus("modal_status_title")}</h2>
+          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors text-gray-400">
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="px-6 py-5 flex flex-col gap-3">
-          {statusOptions.map((opt) => {
+        <form onSubmit={handleSubmit(onSubmit)} className="px-6 pb-6 flex flex-col gap-3">
+          {statusOptionKeys.map((opt) => {
             const isSelected = selected === opt.value;
             const isRed = opt.color === "red";
 
             const borderClass = isSelected
-              ? isRed
-                ? "border-red-300 bg-red-50"
-                : "border-[#F97316] bg-orange-50"
+              ? isRed ? "border-red-400 bg-red-50" : "border-[#F97316] bg-orange-50"
               : "border-gray-200 bg-white hover:border-gray-300";
 
             const dotBorderClass = isSelected
@@ -446,30 +422,30 @@ function StatusModal({
                   {...register("newStatus")}
                   className="hidden"
                 />
-                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-0.5 transition-colors ${dotBorderClass}`}>
+                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors ${dotBorderClass}`}>
                   <div className={`w-2.5 h-2.5 rounded-full transition-all duration-150 ${dotFillClass}`} />
                 </div>
                 <div>
-                  <p className={`text-sm font-semibold ${labelClass}`}>{opt.label}</p>
-                  <p className="text-xs text-gray-400 mt-0.5">{opt.desc}</p>
+                  <p className={`text-sm font-semibold ${labelClass}`}>{tStatus(opt.labelKey)}</p>
+                  <p className="text-xs text-gray-400 mt-0.5">{tStatus(opt.descKey)}</p>
                 </div>
               </label>
             );
           })}
 
-          <div className="flex gap-3 mt-1">
+          <div className="flex gap-3 mt-2">
             <button
               type="submit"
-              className="flex-1 bg-[#F97316] hover:bg-[#ea6c0c] active:bg-[#d96009] text-white font-semibold py-2.5 rounded-xl transition-all shadow-md shadow-orange-200 text-sm"
+              className="flex-1 bg-[#F97316] hover:bg-[#ea6c0c] text-white font-semibold py-2.5 rounded-xl transition-all shadow-lg shadow-orange-100 text-sm"
             >
-              Tasdiqlash
+              {tStatus("modal_confirm")}
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 border border-gray-200 bg-white text-gray-600 font-semibold py-2.5 rounded-xl hover:bg-gray-50 transition-all text-sm"
+              className="flex-1 border border-gray-200 text-gray-600 font-semibold py-2.5 rounded-xl hover:bg-gray-50 transition-all text-sm"
             >
-              Yopish
+              {tStatus("modal_close")}
             </button>
           </div>
         </form>
@@ -489,20 +465,16 @@ export default function OrderDetailPage() {
     id ? mockOrders[decodeURIComponent(id)] ?? null : null
   );
 
-  // TODO: Replace with API call:
-  // useEffect(() => { fetchOrderDetail(id).then(setCurrentOrder) }, [id])
-
   const order = currentOrder;
 
   const statusConfig: Record<string, { label: string; bg: string }> = {
     yangi:         { label: t("status_new"),        bg: "bg-[#F97316] text-white" },
-    qabul_qilindi: { label: t("status_accepted"),   bg: "bg-blue-100 text-blue-600" },
-    yetkazilmoqda: { label: t("status_delivering"), bg: "bg-blue-100 text-blue-600" },
-    yakunlandi:    { label: t("status_done"),       bg: "bg-green-100 text-green-600" },
+    qabul_qilindi: { label: t("status_accepted"),   bg: "bg-blue-500 text-white" },
+    yetkazilmoqda: { label: t("status_delivering"), bg: "bg-blue-500 text-white" },
+    yakunlandi:    { label: t("status_done"),       bg: "bg-green-500 text-white" },
   };
 
   const paymentStatusConfig: Record<string, { label: string; cls: string }> = {
-    tolandan:   { label: t("payment_paid"),      cls: "bg-green-100 text-green-600" },
     tolangan:   { label: t("payment_paid"),      cls: "bg-green-100 text-green-600" },
     kutilmoqda: { label: t("payment_pending"),   cls: "bg-yellow-100 text-yellow-600" },
     bekor:      { label: t("payment_cancelled"), cls: "bg-red-100 text-red-500" },
@@ -511,7 +483,7 @@ export default function OrderDetailPage() {
   const historyLabels: Record<string, string> = {
     order_created:     t("history_created"),
     payment_confirmed: t("history_payment"),
-    order_accepted:    "Buyurtma qabul qilindi",
+    order_accepted:    t("order_accepted"),
     in_progress:       t("history_progress"),
   };
 
@@ -544,7 +516,7 @@ export default function OrderDetailPage() {
   const isNew = order.status === "yangi";
 
   return (
-    <div className="p-4 md:p-6 bg-[#f7f8fa] min-h-screen pb-28">
+    <div className="p-4 md:p-6 bg-[#f8f9fa] min-h-screen pb-28">
 
       {/* Modals */}
       {modal === "accept" && (
@@ -577,7 +549,7 @@ export default function OrderDetailPage() {
         />
       )}
 
-      {/* ── Header ── */}
+      {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
         <div className="flex items-center gap-3">
           <button
@@ -586,10 +558,10 @@ export default function OrderDetailPage() {
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
-          <h1 className="text-xl md:text-2xl font-bold text-gray-900">
+          <h1 className="text-xl md:text-2xl font-bold text-gray-800">
             {t("order_title")} {order.id}
           </h1>
-          <span className={`text-xs font-bold px-3 py-1 rounded-full ${statusConfig[order.status]?.bg ?? "bg-gray-100 text-gray-600"}`}>
+          <span className={`text-xs font-bold px-3 py-1 rounded-full ${statusConfig[order.status]?.bg ?? "bg-gray-200 text-gray-600"}`}>
             {statusConfig[order.status]?.label ?? order.status}
           </span>
         </div>
@@ -598,28 +570,23 @@ export default function OrderDetailPage() {
         </p>
       </div>
 
-      {/* ── Body ── */}
+      {/* Body */}
       <div className="flex flex-col lg:flex-row gap-5">
 
-        {/* ── LEFT ── */}
+        {/* LEFT */}
         <div className="flex-1 flex flex-col gap-5">
 
           {/* Products table */}
           <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-100">
-              <h2 className="text-sm font-bold text-gray-900">{t("products_title")}</h2>
+            <div className="px-6 py-4 border-b border-gray-50">
+              <h2 className="text-base font-semibold text-gray-800">{t("products_title")}</h2>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-gray-100 bg-gray-50/50">
+                  <tr className="border-b border-gray-50">
                     {[t("col_image"), t("col_product_name"), t("col_price"), t("col_qty"), t("col_total")].map((h, i) => (
-                      <th
-                        key={i}
-                        className={`text-xs font-bold text-gray-400 uppercase tracking-wider px-6 py-3 ${
-                          i === 4 ? "text-right" : i === 3 ? "text-center" : "text-left"
-                        }`}
-                      >
+                      <th key={i} className={`text-xs font-semibold text-gray-400 uppercase tracking-wider px-6 py-3 ${i === 4 ? "text-right" : i === 3 ? "text-center" : "text-left"}`}>
                         {h}
                       </th>
                     ))}
@@ -627,19 +594,19 @@ export default function OrderDetailPage() {
                 </thead>
                 <tbody>
                   {order.products.map((p) => (
-                    <tr key={p.id} className="border-b border-gray-50 hover:bg-gray-50/40 transition-colors">
+                    <tr key={p.id} className="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
                       <td className="px-6 py-4">
-                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden flex items-center justify-center flex-shrink-0">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden flex items-center justify-center shrink-0">
                           {p.image ? <img src={p.image} alt={p.name} className="w-full h-full object-cover" /> : null}
                         </div>
                       </td>
                       <td className="px-6 py-4">
-                        <p className="text-sm font-semibold text-gray-900">{p.name}</p>
+                        <p className="text-sm font-semibold text-gray-800">{p.name}</p>
                         <p className="text-xs text-gray-400 mt-0.5">{p.sku}</p>
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-600 whitespace-nowrap">{fmt(p.price)}</td>
                       <td className="px-6 py-4 text-sm text-center text-gray-600">{p.quantity}</td>
-                      <td className="px-6 py-4 text-sm font-bold text-[#F97316] text-right whitespace-nowrap">
+                      <td className="px-6 py-4 text-sm font-semibold text-[#F97316] text-right whitespace-nowrap">
                         {fmt(p.price * p.quantity)}
                       </td>
                     </tr>
@@ -650,7 +617,7 @@ export default function OrderDetailPage() {
                     <td colSpan={4} className="px-6 py-4 text-right text-sm font-semibold text-gray-500">
                       {t("total_sum")}:
                     </td>
-                    <td className="px-6 py-4 text-right text-base font-bold text-[#F97316]">{fmt(total)}</td>
+                    <td className="px-6 py-4 text-right text-lg font-bold text-[#F97316]">{fmt(total)}</td>
                   </tr>
                 </tfoot>
               </table>
@@ -659,27 +626,23 @@ export default function OrderDetailPage() {
 
           {/* Order history */}
           <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-            <h2 className="text-sm font-bold text-gray-900 mb-5">{t("order_history")}</h2>
+            <h2 className="text-base font-semibold text-gray-800 mb-5">{t("order_history")}</h2>
             <div className="flex flex-col">
               {order.history.map((step, idx) => (
                 <div key={idx} className="flex gap-4">
                   <div className="flex flex-col items-center">
-                    <div
-                      className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ${
-                        step.done ? "bg-[#F97316]" : "bg-gray-100"
-                      }`}
-                    >
+                    <div className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-colors ${step.done ? "bg-[#F97316]" : "bg-gray-100"}`}>
                       {step.icon === "cart"   && <span className="text-base">🛒</span>}
                       {step.icon === "check"  && <CheckCircle className={`w-4 h-4 ${step.done ? "text-white" : "text-gray-300"}`} />}
                       {step.icon === "person" && <User className={`w-4 h-4 ${step.done ? "text-white" : "text-gray-300"}`} />}
                       {step.icon === "truck"  && <Truck className={`w-4 h-4 ${step.done ? "text-white" : "text-gray-300"}`} />}
                     </div>
                     {idx < order.history.length - 1 && (
-                      <div className={`w-0.5 h-8 mt-1 rounded-full ${step.done ? "bg-orange-200" : "bg-gray-100"}`} />
+                      <div className={`w-0.5 h-8 mt-1 ${step.done ? "bg-orange-200" : "bg-gray-100"}`} />
                     )}
                   </div>
                   <div className="pb-6">
-                    <p className={`text-sm font-semibold ${step.done ? "text-gray-900" : "text-gray-400"}`}>
+                    <p className={`text-sm font-semibold ${step.done ? "text-gray-800" : "text-gray-400"}`}>
                       {historyLabels[step.label] ?? step.label}
                     </p>
                     <p className="text-xs text-gray-400 mt-0.5">{step.time}</p>
@@ -690,8 +653,8 @@ export default function OrderDetailPage() {
           </div>
         </div>
 
-        {/* ── RIGHT ── */}
-        <div className="w-full lg:w-[272px] flex flex-col gap-4">
+        {/* RIGHT */}
+        <div className="w-full lg:w-72 flex flex-col gap-5">
 
           {/* Client */}
           <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
@@ -700,22 +663,22 @@ export default function OrderDetailPage() {
               <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest">{t("client")}</h2>
             </div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-11 h-11 rounded-full bg-orange-100 flex items-center justify-center text-[#F97316] font-bold text-sm flex-shrink-0">
+              <div className="w-11 h-11 rounded-full bg-orange-100 flex items-center justify-center text-[#F97316] font-bold text-base shrink-0">
                 {order.client.name.charAt(0)}
               </div>
               <div>
-                <p className="text-sm font-semibold text-gray-900">{order.client.name}</p>
-                <p className="text-xs text-gray-400 mt-0.5">{order.client.phone}</p>
+                <p className="text-sm font-semibold text-gray-800">{order.client.name}</p>
+                <p className="text-xs text-gray-400">{order.client.phone}</p>
               </div>
             </div>
-            <div className="border-t border-gray-100 pt-3.5 flex flex-col gap-2.5">
+            <div className="border-t border-gray-50 pt-4 flex flex-col gap-2.5">
               <div className="flex justify-between">
                 <span className="text-xs text-gray-400">{t("region")}:</span>
-                <span className="text-xs font-semibold text-gray-700">{order.client.region}</span>
+                <span className="text-xs font-medium text-gray-700">{order.client.region}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-xs text-gray-400">{t("orders_count")}:</span>
-                <span className="text-xs font-semibold text-gray-700">{order.client.totalOrders} {t("pcs")}</span>
+                <span className="text-xs font-medium text-gray-700">{order.client.totalOrders} {t("pcs")}</span>
               </div>
             </div>
           </div>
@@ -726,12 +689,12 @@ export default function OrderDetailPage() {
               <CreditCard className="w-4 h-4 text-[#F97316]" />
               <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest">{t("payment")}</h2>
             </div>
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-2.5">
               <div className="flex justify-between items-center">
                 <span className="text-xs text-gray-400">{t("payment_method")}:</span>
                 <div className="flex items-center gap-1.5">
                   <span className="text-xs font-semibold text-gray-700">{order.payment.method}</span>
-                  <span className="w-2 h-2 rounded-full bg-green-400 flex-shrink-0" />
+                  <span className="w-2 h-2 rounded-full bg-green-400 shrink-0" />
                 </div>
               </div>
               <div className="flex justify-between items-center">
@@ -740,7 +703,7 @@ export default function OrderDetailPage() {
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-xs text-gray-400">{t("col_status")}:</span>
-                <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${paymentStatusConfig[order.payment.status]?.cls ?? "bg-gray-100 text-gray-500"}`}>
+                <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${paymentStatusConfig[order.payment.status]?.cls}`}>
                   {paymentStatusConfig[order.payment.status]?.label}
                 </span>
               </div>
@@ -755,44 +718,39 @@ export default function OrderDetailPage() {
             </div>
             <div className="flex flex-col gap-1">
               <p className="text-xs text-gray-400">{t("courier_service")}:</p>
-              <p className="text-sm font-bold text-gray-900 mt-0.5 mb-2">{order.delivery.service}</p>
-              <p className="text-xs text-gray-400">{t("address")}:</p>
-              <p className="text-sm text-gray-700 leading-relaxed mt-0.5">{order.delivery.address}</p>
+              <p className="text-sm font-semibold text-gray-800">{order.delivery.service}</p>
+              <p className="text-xs text-gray-400 mt-2">{t("address")}:</p>
+              <p className="text-sm text-gray-700 leading-relaxed">{order.delivery.address}</p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* ── Action Bar — fixed at bottom ── */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-100 shadow-[0_-4px_20px_rgba(0,0,0,0.06)] px-6 py-3.5 flex flex-col sm:flex-row items-center justify-between gap-3 md:left-64">
+      {/* Action Bar — fixed at bottom */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-100 shadow-lg px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 md:left-64">
         <div className="flex flex-wrap gap-3 w-full sm:w-auto">
           {isNew ? (
-            /* YANGI holat */
             <button
               onClick={() => setModal("accept")}
-              className="flex items-center gap-2 bg-[#F97316] hover:bg-[#ea6c0c] active:bg-[#d96009] text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-all duration-200 shadow-md shadow-orange-200"
+              className="flex items-center gap-2 bg-[#F97316] hover:bg-[#ea6c0c] text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-all duration-200 shadow-lg shadow-orange-100"
             >
               <CheckCircle className="w-4 h-4" />
               {t("accept_order")}
             </button>
           ) : (
-            /* Boshqa holatlar */
             <button
               onClick={() => setModal("status")}
-              className="flex items-center gap-2 bg-[#F97316] hover:bg-[#ea6c0c] active:bg-[#d96009] text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-all duration-200 shadow-md shadow-orange-200"
+              className="flex items-center gap-2 bg-[#F97316] hover:bg-[#ea6c0c] text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-all duration-200 shadow-lg shadow-orange-100"
             >
               <RefreshCw className="w-4 h-4" />
-              Statusni o'zgartirish
+              {t("modal_change_status")}
               <ChevronDown className="w-3.5 h-3.5" />
             </button>
           )}
 
           <button
-            onClick={() => {
-              // TODO: API - downloadInvoice(order.id)
-              alert(t("invoice_downloaded"));
-            }}
-            className="flex items-center gap-2 border border-[#F97316] text-[#F97316] hover:bg-orange-50 text-sm font-semibold px-5 py-2.5 rounded-xl transition-all duration-200 bg-white"
+            onClick={() => alert(t("invoice_downloaded"))}
+            className="flex items-center gap-2 border border-[#F97316] text-[#F97316] hover:bg-orange-50 text-sm font-semibold px-5 py-2.5 rounded-xl transition-all duration-200"
           >
             <FileText className="w-4 h-4" />
             {t("download_invoice")}

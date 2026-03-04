@@ -5,7 +5,7 @@ import type { TabKey } from "../../store/addProductStore";
 import BasicTab from "./Tabs/BasicTab";
 import ImagesVideosTab from "./Tabs/ImagesVideosTab";
 import { cn } from "../../lib/utils";
-import { Header } from "./ui/Header";
+
 import InfoCards from "./ui/InfoCards";
 import CharacteristicsTab from "./Tabs/CharacteristicsTab";
 import TiersTab from "./Tabs/TiersTab";
@@ -72,20 +72,14 @@ export default function AddProductPage() {
 
   return (
     <div className="min-h-screen overflow-y-auto bg-background">
-      <Header />
+      {/* <Header /> */}
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 pb-24 sm:pb-6 space-y-6">
+      <div className="max-w-7xl mx-auto md:p-4 p-2 ">
 
         {/* Add Product sahifasi Headeri */}
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
           <div className="space-y-1">
-            <nav className="flex items-center gap-1.5 text-xs text-muted-foreground">
-              <button onClick={() => navigate("/products")} className="hover:text-primary transition-colors">
-                {i18n.t("products")}
-              </button>
-              <span className="text-border">›</span>
-              <span className="text-foreground">{i18n.t("new_product")}</span>
-            </nav>
+           
             <h1 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
               {i18n.t("add_product")}
             </h1>
