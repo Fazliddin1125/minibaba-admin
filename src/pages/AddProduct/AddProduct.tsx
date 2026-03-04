@@ -5,12 +5,11 @@ import type { TabKey } from "../../store/addProductStore";
 import BasicTab from "./Tabs/BasicTab";
 import ImagesVideosTab from "./Tabs/ImagesVideosTab";
 import { cn } from "../../lib/utils";
-
 import InfoCards from "./ui/InfoCards";
 import CharacteristicsTab from "./Tabs/CharacteristicsTab";
 import TiersTab from "./Tabs/TiersTab";
 import VariantsTab from "./Tabs/VariantsTab";
-import i18n from "@/i18n/i18n";
+import { useTranslation } from "react-i18next";
 
 // Tab config
 
@@ -24,6 +23,7 @@ const TAB_ORDER: TabKey[] = [
 // AddProduct componenti =========================================================================================
 
 export default function AddProductPage() {
+  const { i18n } = useTranslation()
   const navigate = useNavigate();
   const { activeTab, setActiveTab, completedTabs } = useAddProductStore();
 

@@ -11,9 +11,10 @@ import StoreBannerCard from "./ui/StoreBannerCard";
 import AccountStatusCard from "./ui/AccountStatusCard";
 import BusinessDocumentsCard from "./ui/BusinessDocumentsCard";
 import WarehouseLocationCard from "./ui/WareHouseLocationCard";
-import i18n from "@/i18n/i18n";
+import { useTranslation } from "react-i18next";
 
 export default function  Settings() {
+  const {i18n} = useTranslation()
   const { formData, save, isSaving, isDirty, reset } = useSettingsStore();
   const [errors, setErrors] = useState<
     Partial<Record<keyof SettingsFormData, string>>

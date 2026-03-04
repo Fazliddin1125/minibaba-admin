@@ -1,4 +1,4 @@
-import i18n from "@/i18n/i18n";
+import { useTranslation } from "react-i18next";
 import RFQCard from "./ui/Card";
 import RFQDetailModal from "./ui/DetailModal";
 import RFQFilterDropdown from "./ui/FilterDropDown";
@@ -6,6 +6,8 @@ import RFQPagination from "./ui/Pagination";
 import RFQTable from "./ui/Table";
 
 export default function RFQ() {
+  const {i18n} = useTranslation()
+
   return (
     <div className="w-full p-4">
       {/* RFQ header */}
