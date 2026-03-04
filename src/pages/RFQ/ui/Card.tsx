@@ -2,6 +2,7 @@ import type { RFQItem } from "@/store/rfqSchema";
 import { Eye } from "lucide-react";
 import RFQStatusBadge from "./StatusBadge";
 import { useRFQStore } from "@/store/rfqStore";
+import i18n from "@/i18n/i18n";
 
 function BuyerAvatar({ initials, index }: { initials: string; index: number }) {
   const colors = [
@@ -34,21 +35,21 @@ function RFQCardItem({ item, index, onView }: { item: RFQItem; index: number; on
         </div>
       </div>
 
-      {/* Info grid */}
+      {/* Info layout */}
       <div className="grid grid-cols-2 gap-y-2 mb-3">
         <div>
-          <p className="text-[10px] text-muted-foreground uppercase tracking-wide font-medium">Xaridor</p>
+          <p className="text-[10px] text-muted-foreground uppercase tracking-wide font-medium">{i18n.t("rfq_client")}</p>
           <div className="flex items-center gap-1.5 mt-1">
             <BuyerAvatar initials={item.buyer.initials} index={index} />
             <p className="text-sm text-foreground">{item.buyer.name}</p>
           </div>
         </div>
         <div>
-          <p className="text-[10px] text-muted-foreground uppercase tracking-wide font-medium">Miqdor</p>
-          <p className="text-sm font-semibold text-foreground mt-1">{item.quantity.toLocaleString()} dona</p>
+          <p className="text-[10px] text-muted-foreground uppercase tracking-wide font-medium">{i18n.t("rfq_amount")}</p>
+          <p className="text-sm font-semibold text-foreground mt-1">{item.quantity.toLocaleString()} {i18n.t("rfq_items")}</p>
         </div>
         <div>
-          <p className="text-[10px] text-muted-foreground uppercase tracking-wide font-medium">Sana</p>
+          <p className="text-[10px] text-muted-foreground uppercase tracking-wide font-medium">{i18n.t("rfq_date")}</p>
           <p className="text-sm text-foreground mt-1">{item.date}</p>
         </div>
       </div>
@@ -60,7 +61,7 @@ function RFQCardItem({ item, index, onView }: { item: RFQItem; index: number; on
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border text-sm font-medium text-foreground hover:bg-secondary transition-colors"
         >
           <Eye size={14} style={{ color: "var(--primary)" }} />
-          Ko'rish
+          {i18n.t("rfq_view_detail")}
         </button>
       </div>
     </div>
@@ -72,7 +73,7 @@ export default function RFQCard() {
   const items = paginatedItems();
 
   if (items.length === 0) {
-    return <div className="text-center py-12 text-muted-foreground text-sm">So'rovlar topilmadi</div>;
+    return <div className="text-center py-12 text-muted-foreground text-sm">{i18n.t("no_rfq_found")}</div>;
   }
 
   return (

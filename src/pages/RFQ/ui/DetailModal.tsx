@@ -3,6 +3,7 @@ import { useRFQStore } from "@/store/rfqStore";
 import { X, CheckCircle2, ArrowRight, MapPin, Calendar, Star } from "lucide-react";
 import { useState } from "react";
 import RFQStatusBadge from "./StatusBadge";
+import i18n from "@/i18n/i18n";
 
 // Klent profili
 function BuyerProfile({ item }: { item: RFQItem }) {
@@ -10,7 +11,7 @@ function BuyerProfile({ item }: { item: RFQItem }) {
   return (
     <div className="rounded-xl border border-border bg-secondary/30 p-4">
       <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-3">
-        Xaridor profili
+        {i18n.t("rfq_buyer_profile")}
       </p>
 
       {/* Klent */}
@@ -27,7 +28,7 @@ function BuyerProfile({ item }: { item: RFQItem }) {
           <div className="flex items-center gap-1 mt-0.5">
             <Star size={11} className="text-yellow-400 fill-yellow-400" />
             <span className="text-xs font-semibold text-foreground">{buyer.rating}</span>
-            <span className="text-xs text-muted-foreground">({buyer.reviews} bitim)</span>
+            <span className="text-xs text-muted-foreground">({buyer.reviews} {i18n.t("rfq_deals")})</span>
           </div>
         </div>
       </div>
@@ -42,7 +43,7 @@ function BuyerProfile({ item }: { item: RFQItem }) {
         </div>
         <div>
           <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
-            Yetkazib berish manzili
+            {i18n.t("rfq_delivering_address")}
           </p>
           <p className="text-sm font-semibold text-foreground mt-0.5">{deliveryAddress}</p>
         </div>
@@ -58,7 +59,7 @@ function BuyerProfile({ item }: { item: RFQItem }) {
         </div>
         <div>
           <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
-            Kutilayotgan muddat
+            {i18n.t("rfq_expected_time")}
           </p>
           <p className="text-sm font-semibold text-foreground mt-0.5">{expectedDeadline}</p>
         </div>
@@ -77,14 +78,14 @@ interface OfferFormProps {
 function OfferForm({ form, errors, onChange }: OfferFormProps) {
   return (
     <div>
-      <h3 className="text-lg font-bold text-foreground mb-4">Sizning taklifingiz</h3>
+      <h3 className="text-lg font-bold text-foreground mb-4">{i18n.t("rfq_make_offer")}</h3>
 
       {/* Narx, muddat */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
         {/* Narx */}
         <div>
           <label className="block text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5">
-            Taklif qilinayotgan narx (1 dona uchun, UZS)
+            {i18n.t("rfq_offering_price")}
           </label>
           <div
             className={`flex items-center border rounded-lg bg-background overflow-hidden transition-colors focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 ${
@@ -95,7 +96,7 @@ function OfferForm({ form, errors, onChange }: OfferFormProps) {
               type="text"
               value={form.price}
               onChange={(e) => onChange("price", e.target.value)}
-              placeholder="Masalan: 450,000"
+              placeholder={i18n.t("rfq_price_placeholder")}
               className="flex-1 h-11 px-3 text-sm bg-transparent outline-none text-foreground placeholder:text-muted-foreground"
             />
             <span className="px-3 text-sm font-medium text-muted-foreground border-l border-input h-full flex items-center">
@@ -110,13 +111,13 @@ function OfferForm({ form, errors, onChange }: OfferFormProps) {
         {/* Muddat */}
         <div>
           <label className="block text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5">
-            Yetkazib berish muddati (kunlarda)
+            {i18n.t("rfq_delivery_time_days")}
           </label>
           <input
             type="text"
             value={form.deliveryDays}
             onChange={(e) => onChange("deliveryDays", e.target.value)}
-            placeholder="Masalan: 3-5 kun"
+            placeholder={i18n.t("rfq_delivery_time_days_placeholder")}
             className={`w-full h-11 px-3 rounded-lg border text-sm bg-background text-foreground placeholder:text-muted-foreground outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/20 ${
               errors.deliveryDays ? "border-destructive" : "border-input"
             }`}
@@ -130,12 +131,12 @@ function OfferForm({ form, errors, onChange }: OfferFormProps) {
       {/* deskription */}
       <div>
         <label className="block text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5">
-          Izoh
+          {i18n.t("rfq_comment")}
         </label>
         <textarea
           value={form.comment}
           onChange={(e) => onChange("comment", e.target.value)}
-          placeholder="Taklifingizga qo'shimcha ma'lumotlar qo'shing..."
+          placeholder={i18n.t("rfq_comment_placeholder")}
           rows={4}
           className="w-full px-3 py-2.5 rounded-lg border border-input text-sm bg-background text-foreground placeholder:text-muted-foreground outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/20 resize-none"
         />
@@ -158,7 +159,7 @@ export default function RFQDetailModal() {
 
   if (!isModalOpen || !selectedItem) return null;
 
-  const canAct = selectedItem.status === "YANGI";
+  const canAct = selectedItem.status === i18n.t("rfq_status_new");
 
   const handleChange = (key: keyof OfferFormData, value: string) => {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -201,7 +202,7 @@ export default function RFQDetailModal() {
         {/* Modal headeri*/}
         <div className="flex items-start justify-between px-6 py-5 border-b border-border shrink-0">
           <h2 className="text-base sm:text-lg font-bold text-foreground pr-4">
-            RFQ Tafsilotlari - #{selectedItem.id}
+            {i18n.t("rfq_details")} - #{selectedItem.id}
           </h2>
           <button
             onClick={closeModal}
@@ -233,9 +234,9 @@ export default function RFQDetailModal() {
                     {selectedItem.productName}
                   </h3>
                   <p className="text-sm text-muted-foreground mt-1">
-                    Miqdor:{" "}
+                    {i18n.t("rfq_amount")}:{" "}
                     <span className="font-semibold text-foreground">
-                      {selectedItem.quantity.toLocaleString()} dona
+                      {selectedItem.quantity.toLocaleString()} {i18n.t("rfq_items")}
                     </span>
                   </p>
                 </div>
@@ -244,7 +245,7 @@ export default function RFQDetailModal() {
               {/* Tavsif */}
               <div>
                 <h4 className="text-xs font-bold text-foreground uppercase tracking-wider mb-1.5">
-                  Tavsif
+                  {i18n.t("rfq_description")}
                 </h4>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   {selectedItem.description}
@@ -255,7 +256,7 @@ export default function RFQDetailModal() {
               {selectedItem.specialRequirements.length > 0 && (
                 <div>
                   <h4 className="text-xs font-bold text-foreground uppercase tracking-wider mb-2">
-                    Maxsus talablar
+                    {i18n.t("rfq_special_requirements")}
                   </h4>
                   <ul className="space-y-1.5">
                     {selectedItem.specialRequirements.map((req) => (
@@ -290,7 +291,7 @@ export default function RFQDetailModal() {
             <div className="flex items-center gap-2 p-4 rounded-xl bg-secondary border border-border">
               <RFQStatusBadge status={selectedItem.status} />
               <p className="text-sm text-muted-foreground">
-                Bu so'rov bo'yicha taklif yuborish imkoni yo'q.
+                {i18n.t("rfq_impossible_offer")}
               </p>
             </div>
           )}
@@ -304,7 +305,7 @@ export default function RFQDetailModal() {
                 onClick={handleReject}
                 className="h-11 px-5 rounded-xl text-sm font-medium text-foreground hover:bg-secondary transition-colors"
               >
-                Rad etish
+                {i18n.t("rfq_reject")}
               </button>
               <button
                 onClick={handleSubmit}
@@ -312,7 +313,7 @@ export default function RFQDetailModal() {
                 style={{ backgroundColor: "var(--primary)" }}
               >
                 <ArrowRight size={15} />
-                Taklif yuborish
+                {i18n.t("rfq_send_offer")}
               </button>
             </>
           ) : (
@@ -320,7 +321,7 @@ export default function RFQDetailModal() {
               onClick={closeModal}
               className="h-11 px-6 rounded-xl text-sm font-medium border border-border text-foreground hover:bg-secondary transition-colors"
             >
-              Yopish
+              {i18n.t("rfq_close")}
             </button>
           )}
         </div>

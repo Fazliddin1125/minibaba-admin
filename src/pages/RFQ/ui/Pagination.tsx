@@ -1,3 +1,4 @@
+import i18n from "@/i18n/i18n";
 import { useRFQStore } from "@/store/rfqStore";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -15,7 +16,7 @@ export default function RFQPagination() {
   return (
     <div className="flex items-center justify-between px-1 border-border mt-2">
       <p className="text-sm text-muted-foreground">
-        Jami {total} ta so'rovdan {from}-{to} ko'rsatilmoqda
+        {i18n.t("rfq_total_from_to", {total, from, to})}
       </p>
 
       <div className="flex items-center gap-1">

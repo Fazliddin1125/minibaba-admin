@@ -1,17 +1,21 @@
+import i18n from "@/i18n/i18n";
 import type { RFQStatus } from "@/store/rfqSchema";
 import { useRFQStore } from "@/store/rfqStore";
 import { SlidersHorizontal, ChevronDown, Check } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 
-const OPTIONS: { label: string; value: RFQStatus | "ALL" }[] = [
-  { label: "Barchasi", value: "ALL" },
-  { label: "Yangi", value: "YANGI" },
-  { label: "Taklif yuborildi", value: "TAKLIF_YUBORILDI" },
-  { label: "Rad etildi", value: "RAD_ETILDI" },
-  { label: "Yakunlangan", value: "YAKUNLANGAN" },
-];
+
 
 export default function RFQFilterDropdown() {
+
+  const OPTIONS: { label: string; value: RFQStatus | "ALL" }[] = [
+    { label: i18n.t("rfq_filter_all"), value: "ALL" },
+    { label: i18n.t("rfq_filter_new"), value: "YANGI" },
+    { label: i18n.t("rfq_filter_offered"), value: "TAKLIF_YUBORILDI" },
+    { label: i18n.t("rfq_filter_rejected"), value: "RAD_ETILDI" },
+    { label: i18n.t("rfq_filter_finished"), value: "YAKUNLANGAN" },
+  ];
+
   const { filterStatus, setFilterStatus } = useRFQStore();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -33,7 +37,7 @@ export default function RFQFilterDropdown() {
         className="h-9 px-4 flex items-center gap-2 rounded-lg border border-border text-sm font-medium text-foreground bg-card hover:bg-secondary transition-colors"
       >
         <SlidersHorizontal size={15} className="text-muted-foreground" />
-        Saralash
+        {i18n.t("rfq_sorting")}
         {filterStatus !== "ALL" && (
           <span
             className="w-2 h-2 rounded-full shrink-0"

@@ -1,3 +1,4 @@
+import i18n from "@/i18n/i18n";
 import RFQCard from "./ui/Card";
 import RFQDetailModal from "./ui/DetailModal";
 import RFQFilterDropdown from "./ui/FilterDropDown";
@@ -6,15 +7,15 @@ import RFQTable from "./ui/Table";
 
 export default function RFQ() {
   return (
-    <div className="w-full p-6">
+    <div className="w-full p-4">
       {/* RFQ header */}
-      <div className="flex items-start justify-between mb-6 mt-14">
+      <div className="flex items-start justify-between mb-6">
         <div>
           <h1 className="text-2xl md:text-3xl font-bold text-foreground">
-            Kelib tushgan so'rovlar
+            {i18n.t("rfq_title")}
           </h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Sizga yuborilgan ulgurji savdo so'rovlari ro'yxati
+            {i18n.t("rfq_subtitle")}
           </p>
         </div>
         <RFQFilterDropdown />
