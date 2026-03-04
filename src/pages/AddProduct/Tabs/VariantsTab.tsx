@@ -109,7 +109,7 @@ function StatusBadge({ status }: { status: Status }) {
   );
 }
 
-// Asosiy compoennt
+// Asosiy compoennt ===============================================================================================================
 
 export default function VariantsTab({ onNext, onSaveDraft }: TabProps) {
   const { markTabCompleted } = useAddProductStore();
@@ -138,8 +138,12 @@ export default function VariantsTab({ onNext, onSaveDraft }: TabProps) {
     setSelected((prev) => { const s = new Set(prev); s.delete(id); return s; });
   };
 
-  const addVariant = () => setVariants((prev) => [...prev, createVariant()]);
 
+  const addVariant = () =>{
+    if (variants.length < 5){
+      setVariants((prev) => [...prev, createVariant()]);
+    }
+  }
   const handleImage = (id: string, file: File) => {
     const preview = URL.createObjectURL(file);
     updateVariant(id, { image: file, imagePreview: preview });

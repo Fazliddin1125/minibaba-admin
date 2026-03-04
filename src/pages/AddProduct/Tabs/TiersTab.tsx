@@ -71,8 +71,11 @@ export default function TiersTab({ onNext, onSaveDraft }: PricesTabProps) {
     onNext();
   };
 
-  const addTier = () => append({ minQty: "", maxQty: "", price: "" });
-
+  const addTier = () => {
+    if (fields.length < 3){
+      append({ minQty: "", maxQty: "", price: "" });
+    }
+  }
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
