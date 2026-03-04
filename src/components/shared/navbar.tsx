@@ -14,7 +14,7 @@ export default function Navbar() {
   const { t, i18n } = useTranslation();
 
   return (
-    <header className="w-full  h-[8vh] bg-white border-b border-gray-100 px-4 md:px-6 flex items-center justify-center fixed top-0 z-50 font-sans">
+    <header className="w-full h-[8vh] bg-white border-b border-gray-100 px-4 md:px-6 flex items-center justify-center font-sans">
 
       <div className="w-full  flex items-center justify-between  mx-auto">
         {/* Chap tomondagi blok */}
