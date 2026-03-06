@@ -15,6 +15,7 @@ import RFQ from "./pages/RFQ/RFQpage";
 import MessagesLayout from "./pages/Messages/MessageLayout";
 import EmptyChatState from "./pages/Messages/EmptyChatState";
 import ChatDetail from "./pages/Messages/ChatDetail";
+import SellerRegisterPage from "./pages/SellerAuth/SellerAuth";
 
 function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -40,6 +41,7 @@ function App() {
         {/* Auth sahifalari - layout yo'q */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/seller-auth" element={<SellerRegisterPage/>} />
 
         {/* Dashboard sahifalari - Sidebar + Navbar bilan */}
         <Route path="/" element={<DashboardLayout><Home /></DashboardLayout>} />

@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
-import { LayoutDashboard, Box, ShoppingCart, MessageSquare, BarChart3, Settings,  LogOut, PanelTopOpen } from "lucide-react";
+import { LayoutDashboard, Box, ShoppingCart, MessageSquare, BarChart3, Settings,  LogOut, PanelTopOpen, IdCard } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const menuItems = [
@@ -11,6 +11,7 @@ const menuItems = [
   { icon: BarChart3, label: "Statistika", href: "/statistics" },
   { icon: Box, label: "Yangi mahsulot qo'shish", href: "/add-product" },
   { icon: PanelTopOpen, label: "So'rovlar", href: "/rfq" },
+  { icon: IdCard, label: "Sotuvchi bo'lish", href: "/seller-auth" },
 ];
 
 

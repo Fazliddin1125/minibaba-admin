@@ -345,6 +345,7 @@ const resources = {
       rfq_reject: "Rad etish",
       rfq_send_offer: "Taklif yuborish",
       rfq_close: "Yopish",
+      // Seller Authentication
       },
   },
   ru: {
