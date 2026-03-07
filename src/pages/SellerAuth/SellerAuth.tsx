@@ -11,11 +11,24 @@ import { AccountInfoSection } from "./ui/AccountInfo";
 import { Sidebar } from "./ui/Sidebar";
 import { useTranslation } from "react-i18next";
 
-const LANGUAGES = ["O'zbekcha", "Русский", "English"];
+const LANGUAGES = [
+  {
+    label: "O'zbekcha",
+    code: "uz",
+  },
+  {
+    label: "Русский",
+    code: "ru",
+  },
+  {
+    label: "English",
+    code: "en",
+  },
+];
 
 export const SellerRegisterPage = () => {
   const { isSubmitted, submitRegistration } = useSellerRegisterStore();
-  const {i18n} = useTranslation();
+  const { i18n } = useTranslation();
 
   const methods = useForm<SellerRegisterFormData>({
     resolver: zodResolver(getSellerRegisterSchema()),
@@ -167,11 +180,12 @@ export const SellerRegisterPage = () => {
               <div className="flex items-center gap-4">
                 {LANGUAGES.map((lang) => (
                   <button
-                    key={lang}
+                    key={lang.code}
+                    onClick={() => i18n.changeLanguage(lang.code)}
                     type="button"
                     className="text-xs text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    {lang}
+                    {lang.label}
                   </button>
                 ))}
               </div>
