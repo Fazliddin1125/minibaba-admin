@@ -4,6 +4,7 @@ import { useFormContext } from "react-hook-form";
 import { Input, Label, FieldError } from "./FormElements";
 import type { SellerRegisterFormData } from "@/store/sellerSchema";
 import { SectionHeader } from "./Header";
+import i18n from "@/i18n/i18n";
 
 export const AccountInfoSection = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,16 +16,16 @@ export const AccountInfoSection = () => {
 
   return (
     <section>
-      <SectionHeader icon={CircleUser} title="Akkount ma'lumotlari" />
+      <SectionHeader icon={CircleUser} title={i18n.t("account_informations")} />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Email */}
         <div>
-          <Label htmlFor="email">Elektron pochta</Label>
+          <Label htmlFor="email">{i18n.t("email")}</Label>
           <Input
             id="email"
             type="email"
-            placeholder="example@mail.com"
+            placeholder={i18n.t("email_register_placeholder")}
             hasError={!!errors.email}
             {...register("email")}
           />
@@ -33,7 +34,7 @@ export const AccountInfoSection = () => {
 
         {/* Parol */}
         <div>
-          <Label htmlFor="password">Parol</Label>
+          <Label htmlFor="password">{i18n.t("password")}</Label>
           <div className="relative">
             <Input
               id="password"
@@ -47,7 +48,7 @@ export const AccountInfoSection = () => {
               type="button"
               onClick={() => setShowPassword((v) => !v)}
               tabIndex={-1}
-              aria-label={showPassword ? "Parolni yashirish" : "Parolni ko'rsatish"}
+              aria-label={showPassword ? i18n.t("hide_password") : i18n.t("show_password")}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
             >
               {showPassword ? (

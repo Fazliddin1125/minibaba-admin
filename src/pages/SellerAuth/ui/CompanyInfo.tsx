@@ -3,35 +3,38 @@ import { useFormContext } from "react-hook-form";
 import { Input, Select, Label, FieldError } from "./FormElements";
 import type { SellerRegisterFormData } from "@/store/sellerSchema";
 import { SectionHeader } from "./Header";
+import i18n from "@/i18n/i18n";
 
-const ACTIVITY_TYPES = [
-  { value: "retail", label: "Chakana savdo" },
-  { value: "wholesale", label: "Ulgurji savdo" },
-  { value: "manufacturing", label: "Ishlab chiqarish" },
-  { value: "services", label: "Xizmat ko'rsatish" },
-  { value: "ecommerce", label: "Elektron tijorat" },
-  { value: "food", label: "Oziq-ovqat" },
-  { value: "other", label: "Boshqa" },
-];
+
 
 export const CompanyInfoSection = () => {
   const {
     register,
     formState: { errors },
   } = useFormContext<SellerRegisterFormData>();
+  
+  const ACTIVITY_TYPES = [
+    { value: "retail", label: i18n.t("retail") },
+    { value: "wholesale", label: i18n.t("wholesale") },
+    { value: "manufacturing", label: i18n.t("manufacturing") },
+    { value: "services", label: i18n.t("services") },
+    { value: "ecommerce", label: i18n.t("ecommerce") },
+    { value: "food", label: i18n.t("food_beverage")},
+    { value: "other", label: i18n.t("other") },
+  ];
 
   return (
     <section>
-      <SectionHeader icon={Building2} title="Kompaniya ma'lumotlari" />
+      <SectionHeader icon={Building2} title={i18n.t("company_informations")} />
 
       <div className="space-y-4">
         {/* Kompaniya nomi + Faoliyat turi */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <Label htmlFor="companyName">Kompaniya nomi</Label>
+            <Label htmlFor="companyName">{i18n.t("company_name")}</Label>
             <Input
               id="companyName"
-              placeholder="Masalan: OOO Golden Trade"
+              placeholder={i18n.t("company_name_placeholder")}
               hasError={!!errors.companyName}
               {...register("companyName")}
             />
@@ -39,13 +42,13 @@ export const CompanyInfoSection = () => {
           </div>
 
           <div>
-            <Label htmlFor="activityType">Faoliyat turi</Label>
+            <Label htmlFor="activityType">{i18n.t("type_of_activity")}</Label>
             <Select
               id="activityType"
               hasError={!!errors.activityType}
               {...register("activityType")}
             >
-              <option value="">Tanlang</option>
+              <option value="">{i18n.t("select")}</option>
               {ACTIVITY_TYPES.map(({ value, label }) => (
                 <option key={value} value={value}>
                   {label}
@@ -58,10 +61,10 @@ export const CompanyInfoSection = () => {
 
         {/* Manzil */}
         <div>
-          <Label htmlFor="address">Manzil</Label>
+          <Label htmlFor="address">{i18n.t("address")}</Label>
           <Input
             id="address"
-            placeholder="Toshkent sh., Yunusobod tumani, 4-kvartal"
+            placeholder={i18n.t("company_address_placeholder")}
             hasError={!!errors.address}
             {...register("address")}
           />
@@ -70,7 +73,7 @@ export const CompanyInfoSection = () => {
 
         {/* Zip code */}
         <div className="max-w-50">
-          <Label htmlFor="zipCode">Zip code (Pochta indeksi)</Label>
+          <Label htmlFor="zipCode">{i18n.t("zip_code")}</Label>
           <Input
             id="zipCode"
             placeholder="100000"

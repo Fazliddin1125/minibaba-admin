@@ -1,3 +1,4 @@
+import i18n from "@/i18n/i18n";
 import { useSellerRegisterStore } from "@/store/sellerStore";
 import { CheckCircle2 } from "lucide-react";
 
@@ -11,17 +12,16 @@ export const SuccessScreen = () => {
           <CheckCircle2 className="w-10 h-10 text-primary" />
         </div>
         <h2 className="text-2xl font-bold text-foreground mb-2">
-          Ariza muvaffaqiyatli yuborildi!
+          {i18n.t("send_succeed")}
         </h2>
         <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-          Sizning ro'yxatdan o'tish arizangiz qabul qilindi. Tez orada siz
-          bilan bog'lanamiz.
+          {i18n.t("notification_after_send")}
         </p>
         <button
           onClick={resetRegistration}
           className="px-5 py-2.5 rounded-lg border border-primary text-primary text-sm font-medium hover:bg-primary/5 transition-colors"
         >
-          Yangidan to'ldirish
+          {i18n.t("reform")}
         </button>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState } from "react";
 import { CloudUpload, FileText, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import i18n from "@/i18n/i18n";
 
 type FileUploadProps = {
   value: File | null;
@@ -71,7 +72,7 @@ export const FileUpload = ({ value, onChange, error }: FileUploadProps) => {
             </div>
             <button
               type="button"
-              aria-label="Faylni o'chirish"
+              aria-label={i18n.t("remove_file")}
               onClick={(e) => { e.stopPropagation(); onChange(null); }}
               className="p-1.5 rounded-full hover:bg-muted text-muted-foreground hover:text-foreground transition-colors shrink-0"
             >
@@ -82,10 +83,10 @@ export const FileUpload = ({ value, onChange, error }: FileUploadProps) => {
           <div className="text-center">
             <CloudUpload className="w-8 h-8 text-primary mx-auto mb-3" />
             <p className="text-sm text-muted-foreground">
-              <span className="text-primary font-medium">Faylni yuklang</span>{" "}
-              yoki shu yerga tashlang
+              <span className="text-primary font-medium">{i18n.t("upload_file")}</span>{" "}
+              {i18n.t("or_drop_here")}
             </p>
-            <p className="text-xs text-muted-foreground mt-1">Maksimal hajmi 10MB</p>
+            <p className="text-xs text-muted-foreground mt-1">{i18n.t("max_file_10mb")}</p>
           </div>
         )}
       </div>

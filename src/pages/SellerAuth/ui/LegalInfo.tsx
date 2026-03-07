@@ -4,6 +4,7 @@ import { Input, Label, FieldError } from "./FormElements";
 import { FileUpload } from "./FileUpload";
 import { SectionHeader } from "./Header";
 import type { SellerRegisterFormData } from "@/store/sellerSchema";
+import i18n from "@/i18n/i18n";
 
 export const LegalInfoSection = () => {
   const {
@@ -14,12 +15,12 @@ export const LegalInfoSection = () => {
 
   return (
     <section>
-      <SectionHeader icon={Scale} title="Yuridik ma'lumotlar" />
+      <SectionHeader icon={Scale} title={i18n.t("legal_informations")} />
 
       <div className="space-y-4">
         {/* INN / Litsenziya */}
         <div>
-          <Label htmlFor="innLicense">Litsenziya yoki INN raqami</Label>
+          <Label htmlFor="innLicense">{i18n.t("license_or_inn")}</Label>
           <Input
             id="innLicense"
             placeholder="000 000 000"
@@ -31,7 +32,7 @@ export const LegalInfoSection = () => {
 
         {/* Fayl yuklash */}
         <div>
-          <Label>Litsenziya fayli (.pdf, .jpg)</Label>
+          <Label>{i18n.t("license_file")} (.pdf, .jpg)</Label>
           <Controller
             name="licenseFile"
             control={control}

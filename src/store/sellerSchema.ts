@@ -1,49 +1,50 @@
+import i18n from "@/i18n/i18n";
 import { z } from "zod";
 
-export const sellerRegisterSchema = z.object({
+export const getSellerRegisterSchema = () => z.object({
   companyName: z
     .string()
-    .min(2, "Kompaniya nomi kamida 2 ta belgidan iborat bo'lishi kerak"),
+    .min(2, i18n.t("error_company_name")),
 
-  activityType: z.string().min(1, "Faoliyat turini tanlang"),
+  activityType: z.string().min(1, i18n.t("error_type_of_activity")),
 
-  address: z.string().min(5, "Manzilni to'liq kiriting"),
+  address: z.string().min(5, i18n.t("error_address")),
 
   zipCode: z
     .string()
-    .regex(/^\d{6}$/, "Pochta indeksi 6 ta raqamdan iborat bo'lishi kerak"),
+    .regex(/^\d{6}$/, i18n.t("error_zip_code")),
 
   innLicense: z
     .string()
-    .min(9, "Litsenziya yoki INN raqamini to'liq kiriting"),
+    .min(9, i18n.t("error_license_inn")),
 
   licenseFile: z
-    .instanceof(File, { message: "Litsenziya faylini yuklang" })
+    .instanceof(File, { message: i18n.t("error_license_file") })
     .refine(
       (file) => file.size <= 10 * 1024 * 1024,
-      "Fayl hajmi 10MB dan oshmasligi kerak"
+      i18n.t("error_file_size_10mb")
     )
     .refine(
       (file) =>
         ["application/pdf", "image/jpeg", "image/png", "image/jpg"].includes(
           file.type
         ),
-      "Faqat PDF yoki JPG/PNG formatda yuklang"
+      i18n.t("error_file_type")
     ),
 
   phone: z
     .string()
-    .min(17, "To'liq telefon raqamini kiriting"),
+    .min(17, i18n.t("error_phone_number")),
 
-  email: z.string().email("To'g'ri email manzilini kiriting"),
+  email: z.string().email(i18n.t("error_email")),
 
   password: z
     .string()
-    .min(8, "Parol kamida 8 ta belgidan iborat bo'lishi kerak"),
+    .min(8, i18n.t("error_password")),
 
-  agreeTerms: z.literal(true, {
-    message: "Foydalanish shartlariga rozilik bildirish shart",
+  agreeTerms: z.boolean().refine(val => val === true, {
+    message: i18n.t("error_terms_agreement"),
   }),
 });
 
-export type SellerRegisterFormData = z.infer<typeof sellerRegisterSchema>;
+export type SellerRegisterFormData = z.infer<ReturnType<typeof getSellerRegisterSchema>>;

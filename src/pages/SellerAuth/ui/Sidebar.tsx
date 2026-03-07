@@ -1,33 +1,36 @@
-import { ShoppingBag, TrendingUp, LayoutDashboard, ShieldCheck } from "lucide-react";
+import i18n from "@/i18n/i18n";
+import { TrendingUp, LayoutDashboard, ShieldCheck } from "lucide-react";
 
-const FEATURES = [
-  {
-    icon: TrendingUp,
-    title: "Millionlab xaridorlar",
-    desc: "Sizning mahsulotlaringizni butun O'zbekiston bo'ylab ko'rishadi.",
-  },
-  {
-    icon: LayoutDashboard,
-    title: "Oson boshqaruv",
-    desc: "Sotuvchi kabineti orqali tovarlar va buyurtmalarni oson boshqaring.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Xavfsiz to'lovlar",
-    desc: "Har bir tranzaksiya himoyalangan va o'z vaqtida to'lanadi.",
-  },
-];
+
 
 export const Sidebar = () => {
+
+  const FEATURES = [
+    {
+      icon: TrendingUp,
+      title: i18n.t("features_title1"),
+      desc: i18n.t("features_description1"),
+    },
+    {
+      icon: LayoutDashboard,
+      title: i18n.t("features_title2"),
+      desc: i18n.t("features_description2"),
+    },
+    {
+      icon: ShieldCheck,
+      title: i18n.t("features_title3"),
+      desc: i18n.t("features_description3"),
+    },
+  ];
 
   return (
     <aside className="hidden md:flex flex-col fixed left-0 top-0 h-screen w-85 lg:w-90 xl:w-100 bg-primary z-10 overflow-hidden">
       {/* Logo */}
       <div className="px-8 pt-8">
         <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 bg-white/20 rounded-xl flex items-center justify-center shrink-0">
-            <ShoppingBag className="w-4.5 h-4.5 text-white" />
-          </div>
+          <a href="/">
+            <img src="/logo.png" alt="logo" />
+          </a>
           <span className="text-white font-bold text-lg tracking-tight">Minibaba</span>
         </div>
       </div>
@@ -36,7 +39,7 @@ export const Sidebar = () => {
       <div className="flex-1 flex flex-col justify-between px-8 pb-8 overflow-hidden">
         <div>
           <h2 className="text-white text-2xl lg:text-[26px] font-bold leading-snug mt-12 mb-8">
-            O'zbekistondagi eng yirik ulgurji marketplacega qo'shiling
+            {i18n.t("slogan_call_to_join")}
           </h2>
 
           <ul className="space-y-5">
@@ -56,9 +59,9 @@ export const Sidebar = () => {
 
         {/* Login link */}
         <div>
-          <p className="text-white/55 text-sm mb-1">Allaqachon ro'yxatdan o'tganmisiz?</p>
+          <p className="text-white/55 text-sm mb-1">{i18n.t("already_registered")}</p>
           <a href="/login" className="text-white font-bold text-sm hover:underline underline-offset-2">
-            Tizimga kirish
+            {i18n.t("sign_in")}
           </a>
         </div>
       </div>

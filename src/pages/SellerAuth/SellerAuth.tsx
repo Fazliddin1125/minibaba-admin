@@ -1,7 +1,7 @@
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { sellerRegisterSchema, type SellerRegisterFormData } from "@/store/sellerSchema";
+import { getSellerRegisterSchema, type SellerRegisterFormData } from "@/store/sellerSchema";
 import { useSellerRegisterStore } from "@/store/sellerStore";
 import { SuccessScreen } from "./ui/SuccessScreen";
 import { CompanyInfoSection } from "./ui/CompanyInfo";
@@ -9,14 +9,16 @@ import { LegalInfoSection } from "./ui/LegalInfo";
 import { ContactSection } from "./ui/Contact";
 import { AccountInfoSection } from "./ui/AccountInfo";
 import { Sidebar } from "./ui/Sidebar";
+import { useTranslation } from "react-i18next";
 
 const LANGUAGES = ["O'zbekcha", "Русский", "English"];
 
 export const SellerRegisterPage = () => {
   const { isSubmitted, submitRegistration } = useSellerRegisterStore();
+  const {i18n} = useTranslation();
 
   const methods = useForm<SellerRegisterFormData>({
-    resolver: zodResolver(sellerRegisterSchema),
+    resolver: zodResolver(getSellerRegisterSchema()),
     defaultValues: {
       companyName: "",
       activityType: "",
@@ -61,10 +63,10 @@ export const SellerRegisterPage = () => {
             {/* Sarlavhalar */}
             <div className="mb-8">
               <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1.5">
-                Sotuvchi sifatida ro'yxatdan o'tish
+                {i18n.t("register_as_seller")}
               </h1>
               <p className="text-muted-foreground text-sm sm:text-base">
-                Biznesingizni biz bilan birga rivojlantirishni boshlang
+                {i18n.t("start_improving_ur_business_with_us")}
               </p>
             </div>
 
@@ -122,21 +124,21 @@ export const SellerRegisterPage = () => {
                       </div>
                     </div>
                     <span className="text-sm text-foreground leading-relaxed">
-                      Men{" "}
+                      {i18n.t("i")}{" "}
                       <a
                         href="/terms"
                         className="text-primary font-medium hover:underline underline-offset-2"
                       >
-                        Foydalanish shartlari
+                        {i18n.t("usage_terms")}
                       </a>{" "}
-                      va{" "}
+                      {i18n.t("and")}{" "}
                       <a
                         href="/privacy"
                         className="text-primary font-medium hover:underline underline-offset-2"
                       >
-                        Maxfiylik siyosatiga
+                        {i18n.t("privacy_policy")}
                       </a>{" "}
-                      roziman
+                      {i18n.t("i_agree")}
                     </span>
                   </label>
                   {errors.agreeTerms && (
@@ -152,7 +154,7 @@ export const SellerRegisterPage = () => {
                   disabled={isSubmitting}
                   className="w-full h-12 rounded-lg bg-primary text-primary-foreground text-base font-semibold transition-all hover:bg-primary/90 active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  {isSubmitting ? "Yuborilmoqda..." : "Ro'yxatdan o'tish"}
+                  {isSubmitting ? i18n.t("sending") : i18n.t("register")}
                 </button>
               </div>
             </form>
@@ -160,7 +162,7 @@ export const SellerRegisterPage = () => {
             {/* Footer */}
             <footer className="mt-12 pt-6 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-3">
               <p className="text-xs text-muted-foreground">
-                Copyright © 2024 Minibaba. Barcha huquqlar himoyalangan.
+                {i18n.t("copyright")}
               </p>
               <div className="flex items-center gap-4">
                 {LANGUAGES.map((lang) => (
